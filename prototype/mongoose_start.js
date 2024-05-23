@@ -17,12 +17,6 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }, 
-    role: {
-        type: String,
-        enum: ["Admin", "Member"],
-        default: "Member",
-        required: true
     }
     //, photo: file
 });
@@ -33,7 +27,7 @@ const SubscriptionSchema = new mongoose.Schema({
         enum: ["Explorer", "Pioneer", "Navigator", "Voyager", "Enterprize"],
     }, 
     price: Number,
-    comment: String,
+    comment: String, // for custom Enterprize
     start: Date,
     end: Date
 });
@@ -105,7 +99,7 @@ const ElicitationSchema = mongoose.Schema({
         required: true
     },
     freeText: String,
-    createdBy: UserSchema,
+    //createdBy: UserSchema, // not supposed to be created - there by default
     updatedBy: UserSchema
     //, file: file
 });
@@ -124,6 +118,7 @@ const SpecificationSchema = mongoose.Schema({
         required: true,
         default: true
     }
+    // deleted? - for Version Control
     //, file: file
 });
 
@@ -146,6 +141,7 @@ const ModelingSchema = mongoose.Schema({
         required: true,
         default: true
     }
+    // deleted? - for Version Control
     //, file: file
 });
 
@@ -167,16 +163,16 @@ const NFRSchema = new mongoose.Schema({
         required: true,
         default: true
     }
+    //, deleted? - for Version Control
 });
 
 // payments
 const PaymentSchema = new mongoose.Schema({
     organization: OrganizationSchema,
-    amount: {
-        type: Number,
-        requried: true
-    },
+    subscription: SubscriptionSchema,
     receivedOn: Date
-})
+});
 
+// notifications: changes in projects, tags, changes in user management 
+// each in each own file: under folder "models"
 
