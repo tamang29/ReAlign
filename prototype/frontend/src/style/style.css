@@ -1,0 +1,26 @@
+.dashboard-container{
+    position: fixed;
+    height: 100%;
+    width:100%;
+}
+
+
+.dashboard-container .mainview-container{
+    position: fixed;
+    height: 100%;
+    background-color: rgb(196, 240, 243);
+
+}
+
+.sidebar-items .nav a{
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0.8em 2em;
+    text-decoration: none;
+    border-radius: 0.8em;
+}
+
+.sidebar-items .nav a.active{
+    background-color: rgb(237, 237, 237);
+}
