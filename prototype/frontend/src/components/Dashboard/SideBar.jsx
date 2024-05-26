@@ -1,16 +1,17 @@
 import {Container, Row, Col, Nav} from 'react-bootstrap'
+import { NavLink } from 'react-router-dom';
 
 
 const SideBar = () =>{
     return(
-        <Container className="sidebar-container">
-            <Row className='p-5 bg-light'>
+        <Container className="sidebar-container p-0">
+            <Row className='p-5'>
                 Company Name/Logo
             </Row>
             <Col className='sidebar-items'>
-                <Nav defaultActiveKey={'/dashboard'} className="flex-column">
-                    <Nav.Link href="/dashboard" >Your Workspace</Nav.Link>
-                    <Nav.Link href="/settings">Settings</Nav.Link>
+                <Nav variant='pills' defaultActiveKey={'/dashboard'} className="flex-column">
+                    <NavLink to="/">Your Workspace</NavLink>
+                    <NavLink to="/settings">Settings</NavLink>
                 </Nav>
             </Col>
         </Container>
