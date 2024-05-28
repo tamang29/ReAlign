@@ -1,12 +1,16 @@
-import { Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Header from "../Dashboard/Header";
+import ProjectList from "./ProjectList";
+import SearchBar from "../Dashboard/SearchBar";
 
 
 const Project = () =>{
     return(
-        <div>
+        <Container>
             <Header title="Your Projects" />
-        </div>
+            <SearchBar/>
+            <ProjectList/>
+        </Container>
     )
 }
 

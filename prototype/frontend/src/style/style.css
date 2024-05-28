@@ -24,3 +24,15 @@
 .sidebar-items .nav a.active{
     background-color: rgb(237, 237, 237);
 }
+
+.project-table thead tr th{
+    background-color: rgb(196, 240, 243);
+}
+
+.project-table tbody tr td{
+    background-color: rgb(196, 240, 243);
+    padding: 0.6em 0;
+}
+.project-table tbody tr td:hover{
+    cursor: pointer;
+}
