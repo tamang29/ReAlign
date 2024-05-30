@@ -1,8 +1,13 @@
 import { Badge, Col, Row, Table, Image, Dropdown } from "react-bootstrap"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faBell} from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from "react-router-dom"
 
 const ProjectList = () =>{
+    const navigate = useNavigate();
+    const handleProjectClick = () =>{
+      navigate('/dashboard/requirements')
+    }
     return(
         <Row>
             <Col md={11}>
@@ -19,7 +24,7 @@ const ProjectList = () =>{
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr onClick={handleProjectClick}>
             <td>1</td>
             <td><FontAwesomeIcon icon={faBell} className='mx-2' />Video Conferencing App</td>
             <td><Badge bg="white" className="text-black">Design</Badge></td>

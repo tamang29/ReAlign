@@ -1,10 +1,12 @@
-import { Container, Row } from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import Header from "../components/Dashboard/Header";
+import BreadCrumbRow from "../components/Dashboard/BreadCrumbRow";
 
 
 const Settings = () =>{
     return(
         <Container className="settings-container">
+            <BreadCrumbRow/>
            <Header title="Settings Page"/>
         </Container>
     )
