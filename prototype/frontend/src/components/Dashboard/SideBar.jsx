@@ -1,28 +1,43 @@
 import {Container, Row, Col, Nav, Image, Button} from 'react-bootstrap'
-import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faHouse, faGear} from "@fortawesome/free-solid-svg-icons"
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useLocation} from "react-router-dom"
+import SideBarItems from './SideBarItems';
+import SideBarRequirements from './SideBarRequirements';
 
 const SideBar = () =>{
+    //lets you navigate like <Link to/>. adds to history stack
     let navigate = useNavigate();
-    const handleUpgradePress = () =>{
-        navigate("/settings")
+    const location = useLocation();
 
+    const renderSideBarItems = () =>{
+        const currentPath = location.pathname;
+
+        switch(currentPath){
+            case '/dashboard':
+                return(
+                <SideBarItems/>
+                );
+            case '/dashboard/settings':
+                return(
+                <SideBarItems/>
+                );
+            default:
+                return(
+                <SideBarRequirements/>
+                )
+        }
+    }
+
+    const handleUpgradePress = () =>{
+        navigate("/dashboard/settings")
     }
 
     return(
         <Container className="sidebar-container p-0 d-flex flex-column" style={{ height: '100vh' }}>
-            <Row className='p-5'>
+            <Row className='p-5' role='button' onClick={()=> navigate("/dashboard")}>
                 Company Name/Logo
             </Row>
             <Row className="flex-grow-1">
-                <Col className="sidebar-items">
-                    <Nav variant='pills' defaultActiveKey={'/dashboard'} className="flex-column">
-                        <NavLink to="/"><FontAwesomeIcon icon={faHouse} className="mx-2"/>Your Workspace</NavLink>
-                        <NavLink to="/settings"><FontAwesomeIcon icon={faGear} className='mx-2' />Settings</NavLink>
-                    </Nav>
-                </Col>
+                {renderSideBarItems()}
             </Row>
             <Row className="mx-5 my-4 ">
                 <Col className="mt-auto" >

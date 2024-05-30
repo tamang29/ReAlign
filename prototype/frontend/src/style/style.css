@@ -36,3 +36,7 @@
 .project-table tbody tr td:hover{
     cursor: pointer;
 }
+
+.breadcrumb-item{
+    font-size: 12px;
+}
