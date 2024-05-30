@@ -8,8 +8,7 @@
 .dashboard-container .mainview-container{
     position: fixed;
     height: 100%;
-    background-color: rgb(196, 240, 243);
-
+    background-color: rgb(219, 231, 234);
 }
 
 .sidebar-items .nav a{
@@ -26,13 +25,26 @@
 }
 
 .project-table thead tr th{
-    background-color: rgb(196, 240, 243);
+    background-color: rgb(219, 231, 234);
 }
 
 .project-table tbody tr td{
-    background-color: rgb(196, 240, 243);
+    background-color: rgb(219, 231, 234);
     padding: 0.6em 0;
 }
 .project-table tbody tr td:hover{
     cursor: pointer;
+}
+
+.breadcrumb-item{
+    font-size: 12px;
+}
+.white-box {
+    width: 100%;
+    height: 400px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
 }
