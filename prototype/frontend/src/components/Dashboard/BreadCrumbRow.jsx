@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Row, Breadcrumb } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const BreadCrumbRow = () =>{
@@ -30,14 +29,10 @@ const BreadCrumbRow = () =>{
                 <Breadcrumb>
                     {breadcrumbs.map((breadcrumb, index) => (
                         //create dynamic breadcrum
-                        //If current index is the last one set active as true (unclickable). print it as label else create a Link component to navigate
+                        //If current index is the last one set active as true (unclickable).
                         //
-                        <Breadcrumb.Item key={index} active={index === breadcrumbs.length - 1}>
-                            {index === breadcrumbs.length - 1 ? (
-                                <span>{breadcrumb.label}</span>
-                            ) : (
-                                <Link to={breadcrumb.path}>{breadcrumb.label}</Link>
-                            )}
+                        <Breadcrumb.Item key={index} active={index === breadcrumbs.length - 1} href={breadcrumb.path}>
+                            <span>{breadcrumb.label}</span>
                         </Breadcrumb.Item>
                     ))}
                 </Breadcrumb>
