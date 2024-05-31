@@ -10,7 +10,7 @@ const ProjectList = () =>{
     }
     return(
         <Row>
-            <Col md={11}>
+        <Col md={11}>
         <Table responsive="md" hover size="sm" className="project-table">
         <thead>
           <tr>
