@@ -25,11 +25,11 @@
     background-color: rgb(237, 237, 237);
 }
 
-.project-table thead tr th{
+.project-table thead tr th, .file-table thead tr th{
     background-color: rgb(196, 240, 243);
 }
 
-.project-table tbody tr td{
+.project-table tbody tr td, .file-table tbody tr td{
     background-color: rgb(196, 240, 243);
     padding: 0.6em 0;
 }
