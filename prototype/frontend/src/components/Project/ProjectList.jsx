@@ -24,9 +24,9 @@ const ProjectList = () =>{
           </tr>
         </thead>
         <tbody>
-          <tr onClick={handleProjectClick}>
+          <tr >
             <td>1</td>
-            <td><FontAwesomeIcon icon={faBell} className='mx-2' />Video Conferencing App</td>
+            <td onClick={handleProjectClick}><FontAwesomeIcon icon={faBell} className='mx-2' />Video Conferencing App</td>
             <td><Badge bg="white" className="text-black">Design</Badge></td>
             <td><Badge bg="danger" className="text-white">High</Badge></td>
             <td>01.06.2024</td>

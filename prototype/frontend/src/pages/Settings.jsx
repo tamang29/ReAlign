@@ -5,7 +5,7 @@ import BreadCrumbRow from "../components/Dashboard/BreadCrumbRow";
 
 const Settings = () =>{
     return(
-        <Container className="settings-container">
+        <Container fluid className="settings-container">
             <BreadCrumbRow/>
            <Header title="Settings Page"/>
         </Container>

@@ -15,7 +15,7 @@ const Dashboard = () =>{
                     <SideBar/>
                 </Col>
                 <Col xs={10} className="p-0">
-                    <Container className="mainview-container">
+                    <Container fluid className="mainview-container p-0">
                     <Routes>
                         <Route path="/" element={<Project/>}/>
                         <Route path="/dashboard" element={<Project/>}/>
