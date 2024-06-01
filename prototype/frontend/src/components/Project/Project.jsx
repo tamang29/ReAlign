@@ -7,7 +7,7 @@ import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
 
 const Project = () =>{
     return(
-        <Container>
+        <Container fluid>
             <BreadCrumbRow/>
             <Header title="Your Projects" />
             <SearchBar/>

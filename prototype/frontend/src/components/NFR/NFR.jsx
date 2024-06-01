@@ -6,7 +6,7 @@ import UploadFile from "../Dashboard/UploadFile";
 
 const NFR = () =>{
     return(
-        <Container>
+        <Container fluid>
         <BreadCrumbRow/>
         <Header title="NFR: Project's Name"/>
         <NFRList/>
