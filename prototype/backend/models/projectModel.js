@@ -17,20 +17,20 @@ const projectSchema = new Schema({
     deadline: {
         type: Date,
         required: true
-    },
+    }, 
     priority: {
         type: String,
         enum: ["Low", "Medium", "High"],
         default: "Medium",
         required: true
-    },
-    permissions: [{user: userSchema,
+    }, 
+    permissions: [{user: userSchema, 
                    level: {
                         type: String,
                         enum: ["Owner", "Editor", "Reader"],
                         required: true
                    }
-                  }],
+                  }]
 });
 
 const Project = mongoose.model('Project', projectSchema);
