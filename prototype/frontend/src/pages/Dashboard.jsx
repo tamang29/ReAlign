@@ -2,9 +2,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import SideBar from "../components/Dashboard/SideBar";
 import Project from "../components/Project/Project";
 import Settings from "./Settings";
-import '../style/style.css';
+import '../styles/style.css';
 import { Route, Routes } from "react-router-dom";
 import NFR from "../components/NFR/NFR";
+
 
 const Dashboard = () =>{
     return(

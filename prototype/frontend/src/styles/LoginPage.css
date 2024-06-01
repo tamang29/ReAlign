@@ -1,0 +1,99 @@
+.login-page {
+    background: linear-gradient(to bottom, #f4fdfe, #ccdfdf,#ccdfdf, #ccdfdf 50%, #ccdfdf,#ccdfdf,#f4fdfe);    /* background-color: aqua; */
+    min-height: 100vh;
+  }
+  
+  .login-container {
+    padding: 100px;
+  }
+  
+  .login-form {
+    max-width: 600px;
+    background: #fff;
+    padding: 100px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form .form-label {
+    font-weight: bold;
+  }
+
+  .login-form .form-control {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-container .btn-primary {
+    width: 100%;
+    background-color: #2b0d5b;
+    margin-top: 0.5rem;
+  }
+
+  .or-separator {
+    font-size: small;
+  }
+  
+  .login-form a {
+    color: #2b0d5b;
+    text-decoration: underline;
+    margin-top:1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .login-form a:hover {
+   color: #752ad1;
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo {
+    margin-top: 1rem;
+    margin-bottom: -3rem;
+  }
+
+  .modal {
+    max-width: 1000rem;
+    padding: 20px;
+  }
+
+  .modal .modal-title {
+    font-weight: bolder;
+    font-size: 1.5rem;
+    color: #6ca3a3;
+    text-align: center;
+    width: 100%;
+  }
+
+  .modal-body {
+    width: 80%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .modal-body .form-label {
+    font-weight: bold;
+  }
+
+  .modal-body .form-control {
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .modal-body .btn-primary {
+    background-color: #2b0d5b;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
