@@ -1,7 +1,8 @@
-.dashboard-container{
+/* Dashboard style */
+.dashboard-container {
     position: fixed;
     height: 100%;
-    width:100%;
+    width: 100%;
 }
 
 
@@ -10,6 +11,10 @@
     background-color: rgb(219, 231, 234);
 }
 
+/* Sidebar style */
+.sidebar-container{
+    height: 100vh;
+}
 .sidebar-items .nav a{
     color: black;
     font-size: 14px;
@@ -19,26 +24,40 @@
     border-radius: 0.8em;
 }
 
-.sidebar-items .nav a.active{
+.sidebar-items .nav a.active {
     background-color: rgb(237, 237, 237);
 }
-
-.project-table thead tr th{
-    background-color: rgb(219, 231, 234);
-}
-
-.project-table tbody tr td{
-    background-color: rgb(219, 231, 234);
-    padding: 0.6em 0;
-}
-.project-table tbody tr td:hover{
+.sidebar-items .section-title {
+    padding: 0.3em 2.5em;
+    font-weight: 800;
     cursor: pointer;
 }
 
-.breadcrumb-item{
+
+/* Project view style */
+.project-table thead tr th {
+    background-color: rgb(219, 231, 234);
+}
+
+.project-table tbody tr td {
+    background-color: rgb(219, 231, 234);
+    padding: 0.6em 0;
+}
+
+.project-table tbody tr td:hover {
+    cursor: pointer;
+}
+
+.breadcrumb-item {
     font-size: 12px;
 }
 
+/* Realign style */
+.company-logo {
+    cursor: pointer;
+}
+
+/* Elicitation Editor style */
 .white-box {
     width: 100%;
     height: 400px;
@@ -47,9 +66,52 @@
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.white-box-content {
+    height: 100%;
+}
+
+/* Settings Page Styles */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    background-color: #e9ecef;
+}
+
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+}
+
+
+.settings-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.settings-container .mainview-container {
+    position: fixed;
+    height: 100%;
+    background-color: rgb(219, 231, 234);
 }
 
 /* upload file table content */
 .file-table th, .file-table td{
     background-color: rgb(219, 231, 234);
 }
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button, Navbar, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import '../styles/LandingPage.css'; // Import the custom CSS from the styles folder
+import '../styles/LandingPage.css'; 
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -13,9 +13,8 @@ const LandingPage = () => {
     return (
         <div>
             <Navbar bg="transparent" variant="dark" expand="lg" className="landing-navbar">
-                {/* <Navbar.Brand href="#home">ReAlign</Navbar.Brand> */}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end"> {/* Add className "justify-content-end" */}
+                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end"> 
                     <Nav>
                         <Nav.Link href="#contact"> Contact Us </Nav.Link>
                         <Button variant="dark" onClick={handleGetStarted}>Get Started</Button>

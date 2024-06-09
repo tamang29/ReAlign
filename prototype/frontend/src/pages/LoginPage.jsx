@@ -1,3 +1,4 @@
+// src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { Form, Button, Container, Modal, Col, Row} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -11,9 +12,11 @@ const LoginPage = () => {
 
   const handleRegisterClick = () => {
     setShow(true);
-    console.log('Modal should open', show);  // This will still show the previous state due to batching
-    // Redirect to the desired route after registering
-    navigate('/dashboard');
+    console.log('Modal should open', show);  
+  };
+
+  const handleLogin = () => {
+    navigate('/dashboard'); 
   };
 
   const handleClose = () => {
@@ -33,14 +36,15 @@ const LoginPage = () => {
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
         <div className="button-container">
-            <Button variant="primary" type="submit" className="my-3"onClick={handleRegisterClick}>
+            <Button variant="primary" type="submit" className="my-3" onClick={handleLogin}>
               Register
             </Button>
             <div className="text-center my-3 or-separator">OR</div>
-            <Button variant="primary" className="mb-3">
+            <Button variant="primary" className="mb-3" onClick={handleRegisterClick}>
               Create a new account
             </Button>
           </div>
+        {/* <RegistrationModal show={show} onHide={handleClose} /> */}
         <Modal show={show} onHide={handleClose} ClassName="custom-modal">
           <Modal.Header closeButton>
             <Modal.Title>Get Started With ReAlign!</Modal.Title>
