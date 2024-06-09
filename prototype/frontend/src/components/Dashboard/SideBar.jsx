@@ -21,12 +21,12 @@ const SideBar = () =>{
                 <SideBarItems/>
             </Row>
             <Row className="mx-5 my-4 ">
-                <Col className="mt-auto" >
+                <Col className="mt-auto">
                     <Row className='mx-3 my-3'>
                         <Image src='' alt="User" roundedCircle />
                     </Row>
                     <Row>
-                        <Button style={{ backgroundColor: "rgb(62,30,65)" }} onClick={handleUpgradePress}>Upgrade</Button>
+                        <Button style={{ backgroundColor: "rgb(62,30,65)", border: 'none' }} onClick={handleUpgradePress}>Upgrade</Button>
                     </Row>
                 </Col>
             </Row>

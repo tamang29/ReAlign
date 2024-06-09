@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import SideBar from "../components/Dashboard/SideBar";
 import Project from "../components/Project/Project";
+import Payment from "./Payment";
 import Settings from "./Settings";
 import '../styles/style.css';
 import { Route, Routes } from "react-router-dom";
@@ -21,7 +22,7 @@ const Dashboard = () =>{
                         <Route path="/" element={<Project/>}/>
                         <Route path="/dashboard" element={<Project/>}/>
                         <Route path="/settings" element={<Settings/>}/>
-                        <Route path="/*" element={<NotFound/>}/>
+                        <Route path="/settings/payment" element={<Payment/>}/>
                     </Routes>
                     </Container>
                 </Col>

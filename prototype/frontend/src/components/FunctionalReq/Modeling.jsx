@@ -1,14 +1,13 @@
+import React from "react";
 import { Container } from "react-bootstrap";
 import Header from "../Dashboard/Header";
-import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
 
-const Modeling = () =>{
-    return(
+const Modeling = () => {
+    return (
         <Container>
-        <BreadCrumbRow/>
-        <Header title="Modeling"/>
+            <Header title="Modeling" />
         </Container>
-    )
+    );
 }
 
 export default Modeling;

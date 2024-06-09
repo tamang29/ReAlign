@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Routes, Route, useParams } from 'react-router-dom';
 import Elicitation from "../components/FunctionalReq/Elicitation";
 import Specification from "../components/FunctionalReq/Specification";
 import Modeling from "../components/FunctionalReq/Modeling";
 import NonFunctionalReq from "../components/NonFunctionalReq/NonFunctionalReq";
 import RequirementsBoard from "../components/Project/RequirementsBoard";
-import { Routes, Route, useParams } from 'react-router-dom';
 import '../styles/style.css';
 import NotFound from '../components/ErrorPages/NotFound';
 
@@ -23,11 +23,10 @@ const Requirements = () => {
                 <Col xs={10} className="p-0">
                     <Container fluid className="mainview-container">
                         <Routes>
-                            <Route path="/elicitation" element={<Elicitation/>} />
-                            <Route path="/specification" element={<Specification/>} />
-                            <Route path="/modeling" element={<Modeling/>} />
-                            <Route path="/nonFunctionalReq" element={<NonFunctionalReq/>} />
-                            <Route path="/*" element={<NotFound/>} />
+                            <Route path="elicitation" element={<Elicitation />} />
+                            <Route path="specification" element={<Specification />} />
+                            <Route path="modeling" element={<Modeling />} />
+                            <Route path="nonFunctionalReq" element={<NonFunctionalReq />} />
                         </Routes>
                     </Container>
                 </Col>
