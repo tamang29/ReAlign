@@ -1,20 +1,10 @@
 import { InputGroup, Form, Row, Col, Button } from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass, faFilter } from '@fortawesome/free-solid-svg-icons'
-import { useState } from "react";
 
-const SearchBar = () =>{
 
-    const [searchText, setSearchText] = useState('');
+const SearchBar = ({handleAddProject, handleSearch, changeShow}) =>{
 
-    const handleProjectPress = () =>{
-        console.log("Add a project press.")
-    }
-
-    const handleSearch = (event) =>{
-        setSearchText(event.target.value)
-        console.log(searchText)
-    }
 
     return(
         <>
@@ -34,7 +24,7 @@ const SearchBar = () =>{
 
             </Col>
             <Col xs={6} align="right">
-                <Button style={{backgroundColor: "rgb(62,30,65)"}} onClick={handleProjectPress}>Add a Project</Button>
+                <Button style={{backgroundColor: "rgb(62,30,65)"}} onClick={changeShow}>Add a Project</Button>
             </Col>
         </Row>
         </>

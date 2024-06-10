@@ -4,16 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-const ProjectList = () => {
-    const navigate = useNavigate();
-
-    const handleProjectClick = (projectId) => {
-        navigate(`/dashboard/requirements/${projectId}/elicitation`);
-    };
+const ProjectList = ({projects, handleProjectClick}) => {
 
     return (
         <Row>
-            <Col md={11}>
+            <Col md={11} className='project-table-container'>
                 <Table responsive="md" hover size="sm" className="project-table">
                     <thead>
                         <tr>
@@ -27,12 +22,23 @@ const ProjectList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style={{ cursor: 'pointer' }}>
-                            <td>1</td>
-                            <td  onClick={() => handleProjectClick(1)}><FontAwesomeIcon icon={faBell} className='mx-2' />Video Conferencing App</td>
-                            <td><Badge bg="white" className="text-black">Design</Badge></td>
-                            <td><Badge bg="danger" className="text-white">High</Badge></td>
-                            <td>01.06.2024</td>
+                       {projects.map((project, index) =>(
+                         <tr style={{ cursor: 'pointer' }} key={project._id}>
+                            <td>{index + 1}</td>
+                            <td  onClick={() => handleProjectClick(project._id)}><FontAwesomeIcon icon={faBell} className='mx-2' />{project.name}</td>
+                            <td><Badge bg="white" className="text-black">{project.status}</Badge></td>
+                            <td>
+                                {project.priority === "High" ? (
+                                    <Badge bg="danger" className="text-white">{project.priority}</Badge>
+                                ): project.priority === "Medium" ? (
+                                    <Badge bg="warning" className="text-white">{project.priority}</Badge>
+                                ): (
+                                    <Badge bg="light" className="text-dark">{project.priority}</Badge>
+                                )
+                                }
+
+                            </td>
+                            <td>{project.deadline}</td>
                             <td><Image src="holder.js/200x180" roundedCircle alt="owner" /></td>
                             <td>
                                 <Dropdown>
@@ -46,6 +52,8 @@ const ProjectList = () => {
                                 </Dropdown>
                             </td>
                         </tr>
+                       ))}
+
                     </tbody>
                 </Table>
             </Col>

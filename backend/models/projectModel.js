@@ -1,14 +1,20 @@
 import mongoose from "mongoose";
+import User from "./userModel.js";
+
 const Schema = mongoose.Schema;
 const projectSchema = new Schema({
-    title: {
+    name: {
         type: String,
         required: true
     },
     description: {
         type: String
     },
-    createdBy: userSchema,
+    createdBy:{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     status: {
         type: String,
         enum: ["Design", "Testing", "Deployed", "Done"],
@@ -24,14 +30,12 @@ const projectSchema = new Schema({
         default: "Medium",
         required: true
     },
-    permissions: [{user: userSchema,
-                   level: {
-                        type: String,
-                        enum: ["Owner", "Editor", "Reader"],
-                        required: true
-                   }
-                  }]
-});
+    users: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }]
+},{timestamps: true});
 
 const Project = mongoose.model('Project', projectSchema);
 export default Project;

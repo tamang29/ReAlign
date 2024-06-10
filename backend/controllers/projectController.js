@@ -1,16 +1,16 @@
-const Project = require('../models/Project');
+import Project from "../models/projectModel.js";
 
 
-exports.getAllProjects = async (req, res) => {
+const getAllProjects = async (req, res) => {
     try {
         const projects = await Project.find();
         res.json(projects);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-};
+}
 
-exports.getProjectById = async (req, res) => {
+const getProjectById = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
         if (project == null) {
@@ -20,6 +20,36 @@ exports.getProjectById = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-};
+}
+
+const createProject = async (req, res) =>{
+    const {name,description,createdBy,status, deadline, priority, users} = req.body;
+    console.log(req.body)
+    try{
+        if(!name || !status ||!deadline || !priority || !users){
+            res.status(400).json({msg: "All fields are mandatory."});
+        }
+        const project = {
+            name: name,
+            description: description,
+            createdBy: createdBy,
+            status: status,
+            deadline: deadline,
+            priority: priority,
+            users: users
+        }
+       Project.create(project).then(()=>{
+        res.status(201).json(project)
+       }).catch((err)=>{
+        res.status(500).json({msg: "Error while saving to DB."})
+        console.log(err)
+       })
+
+    }catch(error){
+        res.status(500).json(error);
+    }
+
+}
 
 
+export {getAllProjects, getProjectById, createProject};
