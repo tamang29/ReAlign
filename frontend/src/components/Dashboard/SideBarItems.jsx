@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faHouse, faGear} from "@fortawesome/free-solid-svg-icons"
 
 const SideBarItems = () =>{
+
     return(
         <Col className="sidebar-items">
             <Nav className="flex-column">

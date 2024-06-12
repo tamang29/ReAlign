@@ -1,5 +1,5 @@
-import {Container, Row, Col, Nav, Image, Button} from 'react-bootstrap'
-import {useNavigate, useLocation} from "react-router-dom"
+import {Container, Row, Col, Image, Button} from 'react-bootstrap'
+import {useNavigate} from "react-router-dom"
 import SideBarItems from './SideBarItems';
 
 
@@ -8,7 +8,7 @@ const SideBar = () =>{
     let navigate = useNavigate();
 
     const handleUpgradePress = () =>{
-        navigate("/dashboard/settings")
+        navigate("/dashboard/settings", { state: { openSubscription: true } });
     }
 
 

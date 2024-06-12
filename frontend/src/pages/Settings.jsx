@@ -10,8 +10,11 @@ import AppearanceAccordion from '../components/Settings/AppearanceAccordion';
 import ProfileSettingsAccordion from '../components/Settings/ProfileSettingsAccordion';
 
 const Settings = () => {
-
-  const [isSubscriptionOpen, setIsSubscriptionOpen] = useState(false);
+  
+  const location = useLocation();
+  console.log("Location state:", location.state?.openSubscription);
+  const [isSubscriptionOpen, setIsSubscriptionOpen] = useState(location.state?.openSubscription);
+  const [isActiveKey, setIsActiveKey] = useState(null);
   const [isAppearanceOpen, setIsAppearanceOpen] = useState(false);
   const [isProfileSettingsOpen, setIsProfileSettingsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -20,29 +23,53 @@ const Settings = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
-    if (location.state?.openSubscription) {
-      setIsSubscriptionOpen(true);
+
+  console.log("Effect triggered");
+    if (isSubscriptionOpen) {
+      setIsActiveKey("0");
+    } else if (isAppearanceOpen) {
+      setIsActiveKey("1"); 
+    } else if (isProfileSettingsOpen) {
+      setIsActiveKey("2");
+    } else {
+      setIsActiveKey(null)
     }
-  }, [location.state]);
+  }, []);
 
   const goToPayment = () => {
     navigate('./payment');
   };
 
   const toggleSubscription = () => {
+    if (isSubscriptionOpen) {
+    setIsActiveKey(null); // Set active key to null to close the accordion item entirely
+  } else {
+    setIsActiveKey("0"); // Set active key to "0" to open the accordion item
+  }
     setIsSubscriptionOpen(!isSubscriptionOpen);
     setIsAppearanceOpen(false); // Close Appearances if it's open
+    setIsProfileSettingsOpen(false); // Close Profile if it's open
   };
 
   const toggleAppearance = () => {
+    if (isAppearanceOpen) {
+      setIsActiveKey(null);
+    } else {
+      setIsActiveKey("1");
+    }
     setIsAppearanceOpen(!isAppearanceOpen);
     setIsSubscriptionOpen(false); // Close Subscription Plan if it's open
+    setIsProfileSettingsOpen(false); // Close Profile if it's open
   };
 
   const toggleProfileSettings = () => {
+    if (isProfileSettingsOpen) {
+      setIsActiveKey(null);
+    } else {
+      setIsActiveKey("2");
+    }
     setIsProfileSettingsOpen(!isProfileSettingsOpen);
     setIsSubscriptionOpen(false);
     setIsAppearanceOpen(false);
@@ -82,7 +109,7 @@ const Settings = () => {
     <Container fluid>
         <BreadCrumbRow/>
        <Header title="Settings Page" />
-       <Accordion>
+       <Accordion activeKey={isActiveKey}>
         <SubscriptionPlanAccordion
           toggleSubscription={toggleSubscription}
           isSubscriptionOpen={isSubscriptionOpen}
