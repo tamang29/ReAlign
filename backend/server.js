@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import db from "./db/connection.js"
 import userRoutes from './routes/user.js';
+import subscriptionRoutes from './routes/subscription.js';
+import organizationRoutes from './routes/organization.js';
 
 
 dotenv.config({path: './config.env'});
@@ -12,7 +14,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/api/user',userRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/subscription', subscriptionRoutes);
+app.use('/api/organization', organizationRoutes);
 
 //Connect to mongodb atlas
 db.then(()=>{

@@ -14,7 +14,10 @@ const organizationSchema = new Schema({
         type: String,
         required: true
     },
-    users: [userSchema],
+    users: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     payment: [{
         paymentMethod: {
             type: String,
@@ -23,7 +26,10 @@ const organizationSchema = new Schema({
         },
         paymentDetails: String
     }],
-    subscription: subscriptionSchema
+    subscription: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subscription'
+    }
     //, logo: file
 });
 
