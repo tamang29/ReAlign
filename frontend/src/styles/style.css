@@ -114,4 +114,117 @@
 .file-table th, .file-table td{
     background-color: rgb(219, 231, 234);
 }
+.subscription-cards {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
 
+.subscription-cards .card {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    width: 210px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-cards .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.subscription-cards .card .row {
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.subscription-cards .card .row:first-child {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.subscription-cards .card .row:last-child {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+}
+
+.accordion-item {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Custom styles for the accordion header when it is expanded */
+.accordion-item .accordion-header .accordion-button:not(.collapsed) {
+    background-color: white;
+    color: black; /* Optional: change text color if needed */
+}
+
+/* Custom styles for the accordion header when it is not expanded */
+.accordion-item .accordion-header .accordion-button.collapsed {
+    background-color: white; /* or any color you prefer when not expanded */
+    color: black; /* Optional: change text color if needed */
+}
+
+.subscription-modal .modal-content {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .subscription-modal .modal-header {
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0;
+  }
+  
+  .subscription-modal .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3e1e41;
+  }
+  
+  .subscription-modal .modal-body {
+    padding: 20px;
+  }
+  
+  .subscription-modal .modal-body .row {
+    margin-bottom: 10px;
+  }
+  
+  .subscription-modal .modal-body strong {
+    color: #3e1e41;
+  }
+  
+  .subscription-modal .modal-footer {
+    border-top: none;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0;
+  }
+  
+  .subscription-modal .modal-footer .btn-secondary {
+    background-color: #3e1e41;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .subscription-modal .modal-footer .btn-secondary:hover {
+    background-color: #562857;
+  }
+  
