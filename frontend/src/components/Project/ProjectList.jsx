@@ -2,7 +2,7 @@ import React from 'react';
 import { Badge, Col, Row, Table, Image, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+
 
 const ProjectList = ({projects, handleProjectClick}) => {
 

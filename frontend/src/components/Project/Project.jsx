@@ -8,10 +8,12 @@ import { useEffect } from "react";
 import { getAllProjects } from "../../services/projectService";
 import { useNavigate } from 'react-router-dom';
 import ProjectPopupForm from "./ProjectPopupForm";
+import { getAllUsers } from "../../services/userService";
 
 
 const Project = () =>{
     const [projects, setProjects] = useState([]);
+    const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     //Project popup initial state show=false
     const [show, setShow] = useState(false);
@@ -20,6 +22,35 @@ const Project = () =>{
     const [searchText, setSearchText] = useState('');
 
     const navigate = useNavigate();
+
+    //Fetch project list from backend
+    const fetchProjects = async() =>{
+        try{
+            const projectList = await getAllProjects();
+            setProjects(projectList);
+
+
+        }catch(error){
+            console.error("Error fetching projects." +error);
+        }finally{
+            setLoading(false);
+        }
+    }
+
+    useEffect(()=>{
+        const fetchUsers = async() =>{
+            try{
+                const userList = await getAllUsers();
+                setUsers(userList);
+                console.log(userList);
+
+            }catch(error){
+                console.error("Error fetching users." +error);
+            }
+        }
+        fetchProjects();
+        fetchUsers();
+    },[])
 
     //navigate to elicitation
     const handleProjectClick = (projectId) => {
@@ -32,34 +63,21 @@ const Project = () =>{
         console.log(searchText)
     }
     //handle popup window to show or close
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleFormClose = () => setShow(false);
+    const handleFormShow = () => setShow(true);
 
     //update project upon successful creation in project popup form
-    const updateProjects = (newProject) => {
-        setProjects([...projects, newProject]);
+    const updateProjects = () => {
+        fetchProjects();
     };
 
-    useEffect(()=>{
-        const fetchProjects = async() =>{
-            try{
-                const projectList = await getAllProjects();
-                setProjects(projectList);
 
-            }catch(error){
-                console.error("Error fetching users." +error);
-            }finally{
-                setLoading(false);
-            }
-        }
-        fetchProjects();
-    },[])
     return(
         <Container fluid>
             <BreadCrumbRow/>
             <Header title="Your Projects" />
-            <ProjectPopupForm show={show} handleClose={handleClose} updateProjects={updateProjects}/>
-            <SearchBar searchText={searchText} handleSearch={handleSearch} changeShow={handleShow}/>
+            <ProjectPopupForm show={show} handleFormClose={handleFormClose} updateProjects={updateProjects} users={users}/>
+            <SearchBar searchText={searchText} handleSearch={handleSearch} changeShow={handleFormShow}/>
             {loading ? (
                 <div className="text-center">
                 <Spinner animation="border" role="status">
