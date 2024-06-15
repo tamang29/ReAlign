@@ -26,7 +26,7 @@ const createProject = async (req, res) =>{
     const {name,description,createdBy,status, deadline, priority, users} = req.body;
     console.log(req.body)
     try{
-        if(!name || !status ||!deadline || !priority || !users){
+        if(!name || !status ||!deadline || !priority){
             res.status(400).json({msg: "All fields are mandatory."});
         }
         const project = {

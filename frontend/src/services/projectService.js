@@ -12,6 +12,7 @@ const getAllProjects = async()=>{
 }
 const createProject = async(req, res)=>{
     try{
+        console.log(req)
         const response = await axios.post(API_URL, req);
         return response.data
     }catch(error){
