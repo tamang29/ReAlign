@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {Row, Col, Button, Form, Modal, Toast,ToastContainer,ListGroup} from 'react-bootstrap';
 import { createProject } from "../../services/projectService";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
@@ -38,13 +40,13 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
         }
 
         try{
-            console.log(formData)
-        const project = await createProject(formData);
-        handleFormClose();
-        updateProjects(project);
-        setShowToast(true);
-        setSelectedUser([]);
-        setFormData([]);
+
+            const project = await createProject(formData);
+            handleFormClose();
+            updateProjects(project);
+            setShowToast(true);
+            setSelectedUser([]);
+            setFormData([]);
         }catch(error){
             console.error("Error creating project." +error);
         }
@@ -205,7 +207,7 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
                             {selectedUser.map(user => (
                             <ListGroup.Item key={user._id} className="d-flex justify-content-between align-items-center" style={{fontSize:12}}>
                                 {user.email}
-                                <Button variant="danger" size="sm" onClick={() => handleRemoveUser(user._id)}>Remove</Button>
+                                <Button variant="danger" size="sm" onClick={() => handleRemoveUser(user._id)}><FontAwesomeIcon icon={faTrash} className="mx-2"/></Button>
                             </ListGroup.Item>
                             ))}
                         </ListGroup>

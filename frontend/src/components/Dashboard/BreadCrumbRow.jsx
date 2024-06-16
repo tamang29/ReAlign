@@ -25,7 +25,7 @@ const BreadCrumbRow = () =>{
     }
 
     return(
-            <Row>
+            <Row className="sticky-top" style={{backgroundColor: 'rgb(219, 231, 234)'}}>
                 <Breadcrumb>
                     {breadcrumbs.map((breadcrumb, index) => (
                         //create dynamic breadcrum

@@ -14,8 +14,9 @@ import { getAllUsers } from "../../services/userService";
 const Project = () =>{
     const [projects, setProjects] = useState([]);
     const [users, setUsers] = useState([]);
+    //Loading animation
     const [loading, setLoading] = useState(true);
-    //Project popup initial state show=false
+    //Create Project popup initial state show=false
     const [show, setShow] = useState(false);
 
     //search bar
@@ -71,6 +72,12 @@ const Project = () =>{
         fetchProjects();
     };
 
+    //description
+    const showProjectDetail = (projectId) =>{
+        console.log("description of:" +projectId);
+        navigate(`/dashboard/${projectId}`)
+    }
+
 
     return(
         <Container fluid>
@@ -85,7 +92,7 @@ const Project = () =>{
                 </Spinner>
                 </div>
             ): (
-            <ProjectList projects={projects} handleProjectClick={handleProjectClick}/>
+            <ProjectList projects={projects} handleProjectClick={handleProjectClick} showProjectDetail={showProjectDetail}/>
             )}
 
 
