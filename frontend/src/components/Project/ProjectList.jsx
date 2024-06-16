@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 
-const ProjectList = ({projects, handleProjectClick}) => {
+const ProjectList = ({projects, handleProjectClick, showProjectDetail}) => {
 
     return (
         <Row>
@@ -46,7 +46,7 @@ const ProjectList = ({projects, handleProjectClick}) => {
                                         ...
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">Description</Dropdown.Item>
+                                        <Dropdown.Item onClick={()=> showProjectDetail(project._id)}>Description</Dropdown.Item>
                                         <Dropdown.Item href="#/action-2">Users</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>

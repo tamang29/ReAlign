@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/project";
+const API_URL = "http://localhost:5001/api/project";
 
 const getAllProjects = async()=>{
     try{
@@ -8,6 +8,14 @@ const getAllProjects = async()=>{
         return response.data;
     }catch(error){
         throw error;
+    }
+}
+const getProjectById = async(projectId) =>{
+    try{
+        const response = await axios.get(`${API_URL}/${projectId}`);
+        return response.data;
+    }catch(error){
+
     }
 }
 const createProject = async(req, res)=>{
@@ -20,4 +28,4 @@ const createProject = async(req, res)=>{
     }
 }
 
-export {getAllProjects, createProject};
+export {getAllProjects, createProject, getProjectById};
