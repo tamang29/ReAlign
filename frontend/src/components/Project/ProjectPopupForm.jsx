@@ -40,7 +40,8 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
         }
 
         try{
-
+            console.log(formData)
+            console.log(selectedUser)
             const project = await createProject(formData);
             handleFormClose();
             updateProjects(project);
@@ -67,24 +68,45 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
             if(selectedUser.some(item => item._id === user._id)){
             setDropdownVisible(false);
             }else{
-            setSelectedUser([...selectedUser, user]);
+            setSelectedUser([...selectedUser, {...user, role: ''}]);
             setFormData(prevFormData => ({
                 ...prevFormData,
-                users: [...prevFormData.users, user._id]
+                users: [...prevFormData.users, {member: user._id, role: ''}]
             }));
             setDropdownVisible(false);
-            console.log(formData);
+
             }
     }
+
     //on remove button click remove user from selected user list and form data
     const handleRemoveUser = (id)=>{
-        console.log(formData)
         setSelectedUser(selectedUser.filter(user => user._id !== id));
         setFormData(prevFormData => ({
             ...prevFormData,
-            users: prevFormData.users.filter(_id => _id !== id)
+            users: prevFormData.users.filter(user => user.member !== id)
         }));
-        console.log(formData);
+    }
+
+    const handleRoleChange = (user, role) =>{
+        setSelectedUser(prevSelectedUser => {
+            const updatedUser = prevSelectedUser.map(u=>{
+                if(u._id === user._id ){
+                    return{ ...u, role}
+                }
+                return u;
+            });
+            return updatedUser;
+        })
+
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            users: prevFormData.users.map(u =>{
+                if(u.member === user._id){
+                    return{ ...u, role}
+                }
+                return u;
+            })
+        }))
     }
 
     return(
@@ -195,6 +217,7 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
                         action
                         >
                         {user.email}
+
                         </ListGroup.Item>
                     ))}
                     </ListGroup>
@@ -207,6 +230,18 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
                             {selectedUser.map(user => (
                             <ListGroup.Item key={user._id} className="d-flex justify-content-between align-items-center" style={{fontSize:12}}>
                                 {user.email}
+                                <Form.Control
+                                as="select"
+                                name="role"
+                                onChange={(e) => handleRoleChange(user, e.target.value)}
+                                required
+                                className="w-25"
+                                >
+                                <option>-select-</option>
+                                <option>Owner</option>
+                                <option>Editor</option>
+                                <option>Reader</option>
+                                </Form.Control>
                                 <Button variant="danger" size="sm" onClick={() => handleRemoveUser(user._id)}><FontAwesomeIcon icon={faTrash} className="mx-2"/></Button>
                             </ListGroup.Item>
                             ))}
@@ -223,7 +258,7 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
             </Modal.Footer>
         </Form>
       </Modal>
-      <ToastContainer position="top-end" className="p-3" style={{ zIndex: 1 }}>
+      <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
         <Toast show={showToast} onClose={() => setShowToast(false)}>
           <Toast.Header>
             <img

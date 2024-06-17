@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5001/api/project";
+const API_URL = "http://localhost:3000/api/project";
 
 const getAllProjects = async()=>{
     try{

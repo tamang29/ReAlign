@@ -38,6 +38,7 @@
 
 /* Project view style */
 .project-table-container{
+    height: 50vh;
     max-height: 50vh;
     overflow-y: scroll;
 }
