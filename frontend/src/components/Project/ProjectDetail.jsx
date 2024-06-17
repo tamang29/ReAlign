@@ -18,7 +18,10 @@ const ProjectDetail = () =>{
         status: '',
         deadline: '',
         priority: '',
-        users: []
+        users: [{
+            member: '',
+            role: ''
+        }]
     });
     const [isDisabled, setIsDisabled] = useState(true);
     const {projectId} = useParams();
@@ -40,13 +43,13 @@ const ProjectDetail = () =>{
         setIsDisabled(false)
     }
 
-    //if user change input field value
+    //if user changes input field value
     const handleProjectDetailChange = () =>{
 
     }
 
     const handleRemoveUser = (id) =>{
-
+        console.log(id)
     }
 
     return(
@@ -60,7 +63,7 @@ const ProjectDetail = () =>{
                             <Row>
                             <Col md={6}>
                                 <Form.Group controlId="formName" className="mb-3">
-                                    <Form.Label>*Project Name</Form.Label>
+                                    <Form.Label>Project Name</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="name"
@@ -69,7 +72,7 @@ const ProjectDetail = () =>{
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formStatus" className="mb-3">
-                                    <Form.Label>*Status</Form.Label>
+                                    <Form.Label>Status</Form.Label>
                                     <Form.Control
                                     as="select"
                                     name="status"
@@ -85,7 +88,7 @@ const ProjectDetail = () =>{
                                 </Form.Group>
 
                                 <Form.Group controlId="formPriority" className="mb-3">
-                                    <Form.Label>*Priority</Form.Label>
+                                    <Form.Label>Priority</Form.Label>
                                     <Form.Control
                                     as="select"
                                     name="priority"
@@ -121,7 +124,7 @@ const ProjectDetail = () =>{
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formDeadline" className="mb-3">
-                                    <Form.Label>*Deadline</Form.Label>
+                                    <Form.Label>Deadline</Form.Label>
                                     <Form.Control
                                     type="date"
                                     name="deadline"
@@ -130,22 +133,36 @@ const ProjectDetail = () =>{
                                     />
                                     </Form.Group>
 
-                                <Form.Group controlId="formUser">
+                                <Form.Group controlId="formMember">
                                      <Form.Label>Team Members</Form.Label>
-                                <ListGroup
-                                style={{
-                                    height: '10rem',
-                                    overflowY: 'scroll'
-                                }}
-                                >
-                                {project.users.map((user, index) => (
-                                    <ListGroup.Item key={user._id} className="d-flex justify-content-between align-items-center" style={{fontSize:12}}>
-                                     {user.firstName}  {user.lastName}<br/>
-                                    {user.email}
-                                    <Button variant="danger" size="sm" onClick={() => handleRemoveUser(user._id)}><FontAwesomeIcon icon={faTrash} className="mx-2" key={user._id}/></Button>
-                                    </ListGroup.Item>
-                                ))}
-                                </ListGroup>
+                                        <ListGroup
+                                        style={{
+                                            height: '10rem',
+                                            overflowY: 'scroll'
+                                        }}
+                                        >
+                                        {project.users.map((user, index) => (
+                                            <ListGroup.Item key={user.member._id} className="d-flex justify-content-between align-items-center" style={{fontSize:12}}>
+                                            {user.member.firstName}  {user.member.lastName}<br/>
+                                            {user.member.email}
+
+                                            <Form.Control
+                                            as="select"
+                                            onChange={handleProjectDetailChange}
+                                            value={user.role}
+                                            className="w-25"
+                                            >
+
+                                            <option>Owner</option>
+                                            <option>Editor</option>
+                                            <option>Reader</option>
+                                            </Form.Control>
+
+                                            <Button variant="danger" size="sm" onClick={() => handleRemoveUser(user.member._id)}><FontAwesomeIcon icon={faTrash} className="mx-2"/></Button>
+                                            </ListGroup.Item>
+
+                                        ))}
+                                        </ListGroup>
                                 </Form.Group>
                             </Col>
                             </Row>

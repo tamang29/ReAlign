@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
     firstName: {
         type: String,
@@ -18,10 +19,6 @@ const userSchema = new Schema({
       password: {
         type: String,
         required: true
-      },
-      role: {
-        type: String,
-        enum: ['Owner', 'Editor', 'Observer'],
       },
       photo: {
         type: String,
