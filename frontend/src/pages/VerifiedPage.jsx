@@ -23,7 +23,7 @@ const VerifiedPage = () => {
             try {
             
                 const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/verify`, { token: emailToken });
-                // ${process.env.REACT_APP_API_URL}/api/auth/verify
+                
                 setUser(response.data);
 
                 setTimeout(() => {

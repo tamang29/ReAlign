@@ -7,7 +7,6 @@ export const sendVerificationEmail = async (user, req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
     
-    // const url = `${process.env.BASE_URL}/api/auth/verify/verify-email?token=${token}`;
     const url = `${process.env.FRONTEND_URL}/verified?token=${token}`;
     
     const transporter = nodemailer.createTransport({
