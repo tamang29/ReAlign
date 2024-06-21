@@ -29,7 +29,8 @@ const ProjectDetail = () =>{
     const {projectId} = useParams();
     const [showDelete, setDeleteShow] = useState(false);
 
-
+    //user id to delete
+    const [userIdToDelete, setUserIdToDelete] = useState(null);
 
     // get project data with id
     useEffect(()=>{
@@ -43,6 +44,7 @@ const ProjectDetail = () =>{
         }
         fetchProjectById();
     },[projectId])
+
 
     const handleEditButton = () =>{
         setIsDisabled(false)
@@ -69,7 +71,7 @@ const ProjectDetail = () =>{
     }
 
 
-    const saveChanges = async() =>{
+    const saveChanges = async(project) =>{
         try{
         await updateProject(project);
         setIsDisabled(true);
@@ -80,10 +82,28 @@ const ProjectDetail = () =>{
     }
     //delete form modal
     const handleDeleteClose = () => setDeleteShow(false);
-    const handleDeleteShow = () => setDeleteShow(true);
+    const handleDeleteShow = (userId) => {
+        setUserIdToDelete(userId)
+        setDeleteShow(true);
+    }
 
-    const handleUserDelete = () =>{
+    const handleUserDelete = async () =>{
+        if(userIdToDelete){
 
+            const updatedProject = {
+                ...project,
+                users: project.users.filter(user => user.member._id !== userIdToDelete)
+            }
+            setProject(updatedProject)
+            try{
+                //console.log(project)
+                setIsSaveDisabled(false);
+
+            }catch(error){
+                console.error("Error while deleting user."+error);
+            }
+            setDeleteShow(false);
+        }
     }
 
 
@@ -149,7 +169,7 @@ const ProjectDetail = () =>{
                                 />
                                 </Form.Group>
                                 <Form.Group controlId="formSaveChanges" className="mb-3">
-                                    <Button variant="primary" size="sm" disabled={isSaveDisabled} onClick={saveChanges}>Save Changes</Button>
+                                    <Button variant="primary" size="sm" disabled={isSaveDisabled} onClick={()=>saveChanges(project)}>Save Changes</Button>
                                 </Form.Group>
                             </Col>
                             <Col>
@@ -200,7 +220,7 @@ const ProjectDetail = () =>{
                                             <option>Reader</option>
                                             </Form.Control>
 
-                                            <Button variant="danger" size="sm" onClick={() => handleDeleteShow()}><FontAwesomeIcon icon={faTrash} className="mx-2"/></Button>
+                                            <Button variant="danger" size="sm" onClick={() => handleDeleteShow(user.member._id)}><FontAwesomeIcon icon={faTrash} className="mx-2"/></Button>
                                             </ListGroup.Item>
 
                                         ))}
