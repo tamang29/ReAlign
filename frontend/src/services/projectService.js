@@ -18,7 +18,7 @@ const getProjectById = async(projectId) =>{
 
     }
 }
-const createProject = async(req, res)=>{
+const createProject = async(req)=>{
     try{
         console.log(req)
         const response = await axios.post(API_URL, req);
@@ -27,5 +27,13 @@ const createProject = async(req, res)=>{
         throw error;
     }
 }
+const updateProject = async (project)=>{
+    try{
+        const response = await axios.put(`${API_URL}/${project._id}`,project);
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}
 
-export {getAllProjects, createProject, getProjectById};
+export {getAllProjects, createProject, getProjectById, updateProject};
