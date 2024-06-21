@@ -18,4 +18,12 @@ const getAllUser = async(req, res)=>{
     }
 }
 
-export {createUser, getAllUser};
+const getUserById = async(req, res) =>{
+    const user = await User.findById(req.params.id);
+    if(!user){
+        res.status(404).json({msg: "User not found."});
+    }
+    res.status(200).json(user);
+}
+
+export {createUser, getAllUser, getUserById};

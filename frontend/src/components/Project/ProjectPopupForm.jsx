@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
 
-    const [selectedUser, setSelectedUser] = useState([]);
+
     //form data
     const [formData, setFormData] = useState({
         name: '',
@@ -18,6 +18,9 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
         priority: '',
         users: []
       });
+
+    const [selectedUser, setSelectedUser] = useState([]);
+
     const [showToast, setShowToast] = useState(false);
     const [validationMessage, setValidationMessage] = useState('');
 
@@ -41,7 +44,6 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
 
         try{
             console.log(formData)
-            console.log(selectedUser)
             const project = await createProject(formData);
             handleFormClose();
             updateProjects(project);
