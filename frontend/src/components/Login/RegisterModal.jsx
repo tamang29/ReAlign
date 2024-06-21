@@ -11,7 +11,7 @@ const isValidEmail = (email) => {
 };
 
 // Base URL for the authentication API
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = 'http://localhost:3000/api/auth';
 
 //register a new user
 const registerUser = async (userData) => {

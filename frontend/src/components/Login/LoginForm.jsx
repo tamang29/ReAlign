@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Base URL for the authentication API
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = 'http://localhost:3000/api/auth';
 
 //log in a user
 const loginUser = async (userData) => {
