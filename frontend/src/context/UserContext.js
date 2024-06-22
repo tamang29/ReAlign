@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
 
   const fetchUserDetails = async (userId, token) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/${userId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
