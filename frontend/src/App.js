@@ -10,6 +10,7 @@ import Requirements from './pages/Requirements.jsx';
 import Settings from './pages/Settings.jsx';
 import Payment from './pages/Payment.jsx';
 import NotFound from './components/ErrorPages/NotFound.jsx';
+import { UserProvider } from './context/UserContext';
 
 function App() {
   return (

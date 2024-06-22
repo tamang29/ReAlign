@@ -11,7 +11,7 @@ import NotFound from "../components/ErrorPages/NotFound";
 const Dashboard = () =>{
     return(
 
-       <Container fluid className="dashboard-container">
+       <Container fluid className="dashboard-container p-0">
             <Row>
                 <Col xs={2} className="p-0">
                     <SideBar/>

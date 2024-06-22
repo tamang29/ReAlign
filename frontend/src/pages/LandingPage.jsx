@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Row, Col, Button, Navbar, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LandingPage.css'; 
