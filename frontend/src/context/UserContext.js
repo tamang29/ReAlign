@@ -1,3 +1,4 @@
+// UserContext.js
 import React, { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
@@ -8,9 +9,12 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
+    console.log(token);
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
+        console.log('decodedToken: ');
+        console.log(decodedToken);
         const userId = decodedToken.id; // Ensure userId is extracted correctly
         if (userId) {
           fetchUserDetails(userId, token);
@@ -28,9 +32,9 @@ export const UserProvider = ({ children }) => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/${userId}`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Cache-Control': 'no-cache'
-        }
+          Authorization: `Bearer ${token}`,
+          'Cache-Control': 'no-cache',
+        },
       });
 
       if (!response.ok) {
@@ -45,8 +49,14 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // const logout = () => {
+  //   localStorage.removeItem('userToken');
+  //   localStorage.removeItem('userData');
+  //   setUser(null);
+  // };
+
   return (
-    <UserContext.Provider value={[user, setUser]}>
+    <UserContext.Provider value={[user, setUser]}> 
       {children}
     </UserContext.Provider>
   );

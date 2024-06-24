@@ -22,7 +22,8 @@ function App() {
           <Route path="/verified" element={<VerifiedPage />} /> 
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/dashboard/requirements/:projectId/*" element={<Requirements />} />
-          {/* By creating this route here you are creating two different route cases. <Route path="/dashboard/settings" element={<Settings />} />
+          {/* By creating this route here you are creating two different route cases.  */}
+          {/* <Route path="/dashboard/settings" element={<Settings />} />
           <Route path="/dashboard/settings/payment" element={<Payment />} /> */}
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />

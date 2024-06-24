@@ -1,23 +1,24 @@
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { login, register } from '../../services/AuthService'
 import axios from 'axios';
 
 // Base URL for the authentication API
 const API_URL = `${process.env.REACT_APP_API_URL}/api/auth`;
 
 
-//log in a user
-const loginUser = async (userData) => {
-    try {
-        // Send a POST request to the /login endpoint with the user data
-        const response = await axios.post(`${API_URL}/login`, userData);
-        // Return the response data from the server
-        return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
-};
+// //log in a user
+// const loginUser = async (userData) => {
+//     try {
+//         // Send a POST request to the /login endpoint with the user data
+//         const response = await axios.post(`${API_URL}/login`, userData);
+//         // Return the response data from the server
+//         return response.data;
+//     } catch (error) {
+//         throw error.response.data;
+//     }
+// };
 
 const LoginForm = ({ onShowRegister }) => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const LoginForm = ({ onShowRegister }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const data = await loginUser({ email: loginEmail, password: loginPassword });
+      const data = await login({ email: loginEmail, password: loginPassword });
       console.log(data);
       navigate('/dashboard'); 
     } catch (err) {

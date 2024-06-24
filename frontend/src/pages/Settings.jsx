@@ -25,7 +25,9 @@ const Settings = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const user = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
+
+  console.log(user);
 
   useEffect(() => {
     if (isSubscriptionOpen) {
@@ -115,12 +117,12 @@ const Settings = () => {
       <BreadCrumbRow/>
       <Header title="Settings Page" />
       {user ? (
-        <h1>Welcome, {user[0].role}</h1>
+        <h1>Welcome, {user.role}</h1>
       ) : (
         <h1>Please log in</h1>
       )}
       <Accordion activeKey={isActiveKey}>
-        {user && user[0].role === 'Admin' && (
+        {user && user.role === 'Admin' && (
           <SubscriptionPlanAccordion
             toggleSubscription={toggleSubscription}
             isSubscriptionOpen={isSubscriptionOpen}
