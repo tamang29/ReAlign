@@ -21,9 +21,7 @@ const Settings = () => {
   const [isProfileSettingsOpen, setIsProfileSettingsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [profilePic, setProfilePic] = useState(`${process.env.PUBLIC_URL}/defaultProfilePic.png`);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+
 
   const [user, setUser] = useContext(UserContext);
 
@@ -86,23 +84,9 @@ const Settings = () => {
     setSelectedPlan(null);
   };
 
-  const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.files[0]);
-  };
+  
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleProfileSettingsSubmit = (e) => {
-    e.preventDefault();
-    console.log('Profile picture:', profilePic);
-    console.log('New password:', password);
-  };
+  
 
   const handleLogout = () => {
     logout();
@@ -130,14 +114,8 @@ const Settings = () => {
         <ProfileSettingsAccordion
           toggleProfileSettings={toggleProfileSettings}
           isProfileSettingsOpen={isProfileSettingsOpen}
-          handleProfilePicChange={handleProfilePicChange}
-          handlePasswordChange={handlePasswordChange}
-          handleConfirmPasswordChange={handleConfirmPasswordChange}
-          handleProfileSettingsSubmit={handleProfileSettingsSubmit}
-          profilePic={profilePic}
-          password={password}
-          confirmPassword={confirmPassword}
           handleLogout={handleLogout}
+          user={user}
         />
       </Accordion>
       <SubscriptionModal

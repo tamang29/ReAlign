@@ -1,18 +1,64 @@
 import React from 'react';
-import { Accordion, Button, Col, Form, Image, Row, Container } from 'react-bootstrap';
+import { Accordion, Button, Col, Form, Image, Row, Container, Alert,  } from 'react-bootstrap';
+import { useState } from 'react';
 
 const ProfileSettingsAccordion = ({
   toggleProfileSettings,
   isProfileSettingsOpen,
-  handleProfilePicChange,
-  handlePasswordChange,
-  handleConfirmPasswordChange,
-  handleProfileSettingsSubmit,
-  profilePic,
-  password,
-  confirmPassword,
-  handleLogout
+  handleLogout,
+  user
 }) => {
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [profilePic, setProfilePic] = useState(`${process.env.PUBLIC_URL}/defaultProfilePic.png`);
+
+  const handleProfilePicChange = (e) => {
+    setProfilePic(e.target.files[0]);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleProfileSettingsSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      setSuccessMessage('');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/${user._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        },
+        body: JSON.stringify({ password })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update password');
+      }
+
+      setSuccessMessage('Password updated successfully');
+      setErrorMessage('');
+      setPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      setErrorMessage(error.message);
+      setSuccessMessage('');
+    }
+  };
+
   return (
     <Accordion.Item eventKey="2" className="accordion-item">
       <Accordion.Header onClick={toggleProfileSettings} className="accordion-item-header">
@@ -42,7 +88,17 @@ const ProfileSettingsAccordion = ({
                 </Form.Group>
               </Col>
               <Col md={8}>
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
+                {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
                 <Form onSubmit={handleProfileSettingsSubmit}>
+                  <Form.Group controlId="formEmail" className="mb-3">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" value={user.email} readOnly />
+                  </Form.Group>
+                  <Form.Group controlId="formName" className="mb-3">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" value={`${user.firstName} ${user.lastName}`} readOnly />
+                  </Form.Group>
                   <Form.Group controlId="formPassword" className="mb-3">
                     <Form.Label>New Password</Form.Label>
                     <Form.Control type="password" value={password} onChange={handlePasswordChange} />
