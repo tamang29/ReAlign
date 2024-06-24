@@ -30,7 +30,6 @@ const LoginForm = ({ onShowRegister }) => {
     e.preventDefault();
     try {
       const data = await login({ email: loginEmail, password: loginPassword });
-      console.log(data);
       navigate('/dashboard'); 
     } catch (err) {
       setLoginError(err.message);

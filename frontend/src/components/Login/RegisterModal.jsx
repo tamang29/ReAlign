@@ -61,7 +61,6 @@ const RegisterModal = ({ show, handleClose}) => {
     }
     try {
       const data = await registerUser(registerData);
-      console.log(data);
       setSuccess('Registration successful!Please check your email to verify your account.');
       setRegisterError(null);
       setTimeout(() => {

@@ -27,8 +27,6 @@ const Settings = () => {
 
   const [user, setUser] = useContext(UserContext);
 
-  console.log(user);
-
   useEffect(() => {
     if (isSubscriptionOpen) {
       setIsActiveKey("0");
@@ -116,11 +114,6 @@ const Settings = () => {
     <Container fluid>
       <BreadCrumbRow/>
       <Header title="Settings Page" />
-      {user ? (
-        <h1>Welcome, {user.role}</h1>
-      ) : (
-        <h1>Please log in</h1>
-      )}
       <Accordion activeKey={isActiveKey}>
         {user && user.role === 'Admin' && (
           <SubscriptionPlanAccordion

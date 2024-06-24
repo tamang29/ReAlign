@@ -9,12 +9,9 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
-    console.log(token);
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        console.log('decodedToken: ');
-        console.log(decodedToken);
         const userId = decodedToken.id; // Ensure userId is extracted correctly
         if (userId) {
           fetchUserDetails(userId, token);

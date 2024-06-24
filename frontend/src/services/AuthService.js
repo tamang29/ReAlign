@@ -15,7 +15,6 @@ const API_URL = `${process.env.REACT_APP_API_URL}/api/auth`;
 export const login = async (userData) => {
     try {
         const response = await axios.post(`${API_URL}/login`, userData);
-        console.log(response);
         if (response.data.token) {
             localStorage.setItem('userToken', response.data.token);
             localStorage.setItem('userData', JSON.stringify(response.data));
