@@ -6,7 +6,9 @@ import Settings from "./Settings";
 import '../styles/style.css';
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProjectDetail from "../components/Project/ProjectDetail";
+import Requirements from "./Requirements";
 import NotFound from "../components/ErrorPages/NotFound";
+import Elicitation from "../components/FunctionalReq/Elicitation";
 
 
 const Dashboard = () =>{
