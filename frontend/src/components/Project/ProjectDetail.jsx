@@ -53,11 +53,11 @@ const ProjectDetail = () =>{
     //if user changes input field value
     const handleProjectDetailChange = (e, userId) =>{
         const { name, value } = e.target;
-        if(project[name] !== value){
+        if(project[name] !== value){ //if value is changed by the user.
             setIsSaveDisabled(false);
             setProject({ ...project, [name]: value });
         }
-        if(name === "role"){
+        if(name === "role"){ //if the user changes role of team member.
             setProject(prevProject =>({
                 ...prevProject,
                 users: prevProject.users.map(u=>{
