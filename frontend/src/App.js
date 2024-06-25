@@ -10,6 +10,7 @@ import Settings from './pages/Settings.jsx';
 import Payment from './pages/Payment.jsx';
 import NotFound from './components/ErrorPages/NotFound.jsx';
 
+
 function App() {
   return (
     <div className="App">
