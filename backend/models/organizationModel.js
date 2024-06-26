@@ -29,6 +29,10 @@ const organizationSchema = new Schema({
     subscription: {
         type: Schema.Types.ObjectId,
         ref: 'Subscription'
+    },
+    nextSubscription: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subscription'
     }
     //, logo: file
 });
