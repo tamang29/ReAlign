@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from 'react'; 
-import { Container, Accordion } from "react-bootstrap";
+import React, { useState, useEffect, useContext } from 'react';
+import { Container, Accordion, Col } from "react-bootstrap";
 import Header from "../components/Dashboard/Header";
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Settings.css';
@@ -19,6 +19,7 @@ const Settings = () => {
   const [isActiveKey, setIsActiveKey] = useState(null);
   const [isAppearanceOpen, setIsAppearanceOpen] = useState(false);
   const [isProfileSettingsOpen, setIsProfileSettingsOpen] = useState(location.state?.openProfileSettings);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [user, organization, subscription] = useContext(UserContext);
@@ -30,10 +31,12 @@ const Settings = () => {
       setIsActiveKey("1");
     } else if (isProfileSettingsOpen) {
       setIsActiveKey("2");
+    } else if (isSupportOpen) {
+      setIsActiveKey("3");
     } else {
       setIsActiveKey(null);
     }
-  }, [isSubscriptionOpen, isAppearanceOpen, isProfileSettingsOpen]);
+  }, [isSubscriptionOpen, isAppearanceOpen, isProfileSettingsOpen, isSupportOpen]);
 
   const goToPayment = () => {
     navigate('./payment');
@@ -48,6 +51,7 @@ const Settings = () => {
     setIsSubscriptionOpen(!isSubscriptionOpen);
     setIsAppearanceOpen(false);
     setIsProfileSettingsOpen(false);
+    setIsSupportOpen(false);
   };
 
   const toggleAppearance = () => {
@@ -59,6 +63,7 @@ const Settings = () => {
     setIsAppearanceOpen(!isAppearanceOpen);
     setIsSubscriptionOpen(false);
     setIsProfileSettingsOpen(false);
+    setIsSupportOpen(false);
   };
 
   const toggleProfileSettings = () => {
@@ -70,6 +75,19 @@ const Settings = () => {
     setIsProfileSettingsOpen(!isProfileSettingsOpen);
     setIsSubscriptionOpen(false);
     setIsAppearanceOpen(false);
+    setIsSupportOpen(false);
+  };
+
+  const toggleSupport = () => {
+    if (isSupportOpen) {
+      setIsActiveKey(null);
+    } else {
+      setIsActiveKey("3");
+    }
+    setIsSupportOpen(!isSupportOpen);
+    setIsSubscriptionOpen(false);
+    setIsAppearanceOpen(false);
+    setIsProfileSettingsOpen(false);
   };
 
   const handleCardClick = (plan) => {
@@ -112,6 +130,22 @@ const Settings = () => {
           handleLogout={handleLogout}
           user={user}
         />
+        {/* Support Accordion Item */}
+        <Accordion.Item eventKey="3" className="accordion-item" activeKey = {isActiveKey}>
+          <Accordion.Header className="accordion-item-header" onClick={toggleSupport}>
+            <Col xs={11}>
+              <span className="settings-header">Support</span>
+            </Col>
+          </Accordion.Header>
+          <Accordion.Body>
+            <div className="content">
+            <div className="support-content">
+                We are there for you! Reach out to us via{' '}
+                <a href="mailto:support@realign.com">support@realign.com</a>.
+              </div>
+            </div>
+          </Accordion.Body>
+        </Accordion.Item>
       </Accordion>
       <SubscriptionModal
         show={showModal}
