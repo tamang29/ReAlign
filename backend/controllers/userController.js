@@ -56,7 +56,7 @@ const getUserById = async (req, res) => {
 
   const updateUser = async (req, res) => {
     const { id } = req.params;
-    const { firstName, lastName, email, password, role, photo } = req.body;
+    const { firstName, lastName, email, password, role, photo, organization } = req.body;
 
     try {
         const user = await User.findById(id);
@@ -69,6 +69,7 @@ const getUserById = async (req, res) => {
         if (email) user.email = email;
         if (role) user.role = role;
         if (photo) user.photo = photo;
+        if (organization) user.organization = organization;
 
         if (password) {
             // Generate a salt and hash the password

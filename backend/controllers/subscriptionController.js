@@ -8,7 +8,8 @@ const createSubscription = async(req, res)=>{
     }catch(error){
         res.status(400).json(error);
     }
-}
+};
+
 const getAllSubscription = async(req, res)=>{
     try{
         const subscriptions = await Subscription.find({});
@@ -16,6 +17,18 @@ const getAllSubscription = async(req, res)=>{
     }catch(error){
         res.status(400).json(error);
     }
-}
+};
 
-export {createSubscription, getAllSubscription};
+const getSubscriptionById = async (req, res) => {
+    try {
+        const subscription = await Subscription.findById(req.params.id);
+        if (subscription == null) {
+            return res.status(404).json({ message: 'Subscription not found' });
+        }
+        res.json(subscription);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export {createSubscription, getAllSubscription, getSubscriptionById};

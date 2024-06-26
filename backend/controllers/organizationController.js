@@ -1,9 +1,9 @@
 import Organization from "../models/organizationModel.js";
 
 const createOrganization = async(req, res)=>{
-    const {name, email, password, users, payment, subscription}= req.body;
+    const {name, payment, subscription}= req.body;
     try{
-        const organization = await Organization.create({name, email, password, users, payment, subscription});
+        const organization = await Organization.create({name, payment, subscription});
         res.status(200).json(organization);
     }catch(error){
         res.status(400).json(error);

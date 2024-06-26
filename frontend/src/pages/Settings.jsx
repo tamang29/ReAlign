@@ -1,8 +1,8 @@
+import { useState, useEffect, useContext } from 'react'; 
 import { Container, Accordion } from "react-bootstrap";
 import Header from "../components/Dashboard/Header";
-import { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../styles/style.css';
+import '../styles/Settings.css';
 import BreadCrumbRow from "../components/Dashboard/BreadCrumbRow";
 import SubscriptionModal from "../components/Settings/SubscriptionModal";
 import SubscriptionPlanAccordion from '../components/Settings/SubscriptionPlanAccordion';
@@ -10,6 +10,7 @@ import AppearanceAccordion from '../components/Settings/AppearanceAccordion';
 import ProfileSettingsAccordion from '../components/Settings/ProfileSettingsAccordion';
 import UserContext from '../context/UserContext';
 import { logout } from '../services/AuthService';
+import CustomReactFlow from "../components/FunctionalReq/CustomReactFlow"; // Correct import path
 
 const Settings = () => {
   const location = useLocation();
@@ -18,12 +19,16 @@ const Settings = () => {
   const [isSubscriptionOpen, setIsSubscriptionOpen] = useState(location.state?.openSubscription);
   const [isActiveKey, setIsActiveKey] = useState(null);
   const [isAppearanceOpen, setIsAppearanceOpen] = useState(false);
-  const [isProfileSettingsOpen, setIsProfileSettingsOpen] = useState(false);
+  const [isProfileSettingsOpen, setIsProfileSettingsOpen] = useState(location.state?.openProfileSettings);
   const [showModal, setShowModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [user, organization, subscription] = useContext(UserContext);
 
-
-  const [user, setUser] = useContext(UserContext);
+  const elements = [
+    { id: '1', type: 'input', data: { label: 'Input Node' }, position: { x: 250, y: 5 } },
+    { id: '2', type: 'output', data: { label: 'Output Node' }, position: { x: 250, y: 200 } },
+    { id: 'e1-2', source: '1', target: '2', animated: true }
+  ];
 
   useEffect(() => {
     if (isSubscriptionOpen) {
@@ -84,20 +89,16 @@ const Settings = () => {
     setSelectedPlan(null);
   };
 
-  
-
-  
-
   const handleLogout = () => {
     logout();
-    // setUser(null);
     navigate('/login');
   };
 
   return (
     <Container fluid>
-      <BreadCrumbRow/>
+      <BreadCrumbRow />
       <Header title="Settings Page" />
+      {/* <CustomReactFlow nodes={elements} edges={[]} />  */}
       <Accordion activeKey={isActiveKey}>
         {user && user.role === 'Admin' && (
           <SubscriptionPlanAccordion
@@ -105,6 +106,8 @@ const Settings = () => {
             isSubscriptionOpen={isSubscriptionOpen}
             handleCardClick={handleCardClick}
             goToPayment={goToPayment}
+            organization={organization['name']}
+            subscription={subscription['level']}
           />
         )}
         <AppearanceAccordion

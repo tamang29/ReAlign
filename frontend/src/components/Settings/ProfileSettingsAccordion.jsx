@@ -1,6 +1,5 @@
-import React from 'react';
-import { Accordion, Button, Col, Form, Image, Row, Container, Alert,  } from 'react-bootstrap';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Accordion, Button, Col, Form, Image, Row, Container, Alert } from 'react-bootstrap';
 
 const ProfileSettingsAccordion = ({
   toggleProfileSettings,
@@ -8,7 +7,6 @@ const ProfileSettingsAccordion = ({
   handleLogout,
   user
 }) => {
-
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +14,7 @@ const ProfileSettingsAccordion = ({
   const [profilePic, setProfilePic] = useState(`${process.env.PUBLIC_URL}/defaultProfilePic.png`);
 
   const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.files[0]);
+    setProfilePic(URL.createObjectURL(e.target.files[0]));
   };
 
   const handlePasswordChange = (e) => {
@@ -66,7 +64,7 @@ const ProfileSettingsAccordion = ({
       </Accordion.Header>
       <Accordion.Body>
         {isProfileSettingsOpen && (
-          <Container className="p-3" style={{ maxWidth: '600px' }}>
+          <Container className="p-3 scrollable-container">
             <Row className="content">
               <Col md={4} className="text-center">
                 {profilePic && (
@@ -93,19 +91,37 @@ const ProfileSettingsAccordion = ({
                 <Form onSubmit={handleProfileSettingsSubmit}>
                   <Form.Group controlId="formEmail" className="mb-3">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" value={user.email} readOnly />
+                    <Form.Control
+                      type="email"
+                      value={user.email}
+                      readOnly
+                      className="read-only-field"
+                    />
                   </Form.Group>
                   <Form.Group controlId="formName" className="mb-3">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" value={`${user.firstName} ${user.lastName}`} readOnly />
+                    <Form.Control
+                      type="text"
+                      value={`${user.firstName} ${user.lastName}`}
+                      readOnly
+                      className="read-only-field"
+                    />
                   </Form.Group>
                   <Form.Group controlId="formPassword" className="mb-3">
                     <Form.Label>New Password</Form.Label>
-                    <Form.Control type="password" value={password} onChange={handlePasswordChange} />
+                    <Form.Control
+                      type="password"
+                      value={password}
+                      onChange={handlePasswordChange}
+                    />
                   </Form.Group>
                   <Form.Group controlId="formConfirmPassword" className="mb-3">
                     <Form.Label>Confirm New Password</Form.Label>
-                    <Form.Control type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
+                    <Form.Control
+                      type="password"
+                      value={confirmPassword}
+                      onChange={handleConfirmPasswordChange}
+                    />
                   </Form.Group>
                   <Button
                     variant="primary"

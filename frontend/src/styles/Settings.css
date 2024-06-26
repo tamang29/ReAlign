@@ -1,0 +1,167 @@
+/* Read-only field styles */
+.read-only-field {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    cursor: not-allowed;
+  }
+  
+  .read-only-field:focus {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    box-shadow: none;
+  }
+  
+  /* Settings Page Styles */
+  .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-right: 10px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+      background-color: #f8f9fa;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card:hover {
+      background-color: #e9ecef;
+  }
+  
+  .title-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: black;
+  }
+  
+  .settings-container {
+      position: fixed;
+      height: 100%;
+      width: 100%;
+  }
+  
+  .settings-container .mainview-container {
+      position: fixed;
+      height: 100%;
+      background-color: rgb(219, 231, 234);
+  }
+  
+  .scrollable-container {
+      width: 100%;
+      max-height: 70vh; /* Adjust based on your design */
+      overflow-y: auto;
+      padding-right: 15px;
+  }
+  
+  /* Subscription cards styles */
+  .subscription-cards {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 20px;
+  }
+  
+  .subscription-cards .card {
+      flex: 0 0 auto;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      padding: 20px;
+      width: 210px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .subscription-cards .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .subscription-cards .card .row {
+      margin-bottom: 7px;
+      font-size: 14px;
+  }
+  
+  .subscription-cards .card .row:first-child {
+      font-weight: bold;
+      font-size: 16px;
+  }
+  
+  .subscription-cards .card .row:last-child {
+      font-weight: bold;
+      margin-bottom: 0px;
+  }  
+  .subscription-cards .card.highlighted-card {
+    border: 2px solid #6c3e5e; /* Blue border for highlighting */
+    background-color: #f0e6eb; /* Light blue background */
+}
+  
+  /* Accordion styles */
+  .accordion-item {
+      width: 100%;
+      justify-content: center;
+  }
+  
+  .accordion-item .accordion-header .accordion-button:not(.collapsed) {
+      background-color: white;
+      color: black;
+  }
+  
+  .accordion-item .accordion-header .accordion-button.collapsed {
+      background-color: white;
+      color: black;
+  }
+  
+  /* Modal styles */
+  .subscription-modal .modal-content {
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #f8f9fa;
+  }
+  
+  .subscription-modal .modal-header {
+      border-bottom: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0;
+  }
+  
+  .subscription-modal .modal-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #3e1e41;
+  }
+  
+  .subscription-modal .modal-body {
+      padding: 20px;
+  }
+  
+  .subscription-modal .modal-body .row {
+      margin-bottom: 10px;
+  }
+  
+  .subscription-modal .modal-body strong {
+      color: #3e1e41;
+  }
+  
+  .subscription-modal .modal-footer {
+      border-top: none;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 0;
+  }
+  
+  .subscription-modal .modal-footer .btn-secondary {
+      background-color: #3e1e41;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+  }
+  
+  .subscription-modal .modal-footer .btn-secondary:hover {
+      background-color: #6c3e5e;
+  }
+

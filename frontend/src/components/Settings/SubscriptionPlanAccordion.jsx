@@ -1,7 +1,12 @@
 import React from 'react';
 import { Accordion, Button, Card, Row, Col } from 'react-bootstrap';
 
-const SubscriptionPlanAccordion = ({ toggleSubscription, isSubscriptionOpen, handleCardClick, goToPayment }) => {
+const SubscriptionPlanAccordion = ({ toggleSubscription, 
+                                     isSubscriptionOpen, 
+                                     handleCardClick, 
+                                     goToPayment, 
+                                     organization, 
+                                     subscription }) => {
     const subscriptionPlans = [
         {
           name: "Explorer",
@@ -100,40 +105,44 @@ const SubscriptionPlanAccordion = ({ toggleSubscription, isSubscriptionOpen, han
         }
       ];
 
-  return (
-    <Accordion.Item eventKey="0" className="accordion-item">
-       <Accordion.Header onClick={toggleSubscription} className="accordion-item-header">
-                  <Col xs={9}>
-                    <span className="settings-header">Subscription Plan</span>
-                  </Col>
-                  <Col xs={2}>
-                    <Button
-                      onClick={(e) => { e.stopPropagation(); goToPayment(); }}
-                      className="ms-auto"
-                      style={{ backgroundColor: "rgb(62,30,65)", color: 'white', border: 'none', borderRadius: '5px' }}>
-                      Edit Payment Method
-                    </Button>
-                  </Col>
-        </Accordion.Header>
-      <Accordion.Body>
-      {isSubscriptionOpen && (
-                    <div className="content">
-                      <div className="subscription-cards d-flex">
-                        {subscriptionPlans.map((plan, index) => (
-                          <Card key={index} className="card mx-2" onClick={() => handleCardClick(plan)}>
-                            <Row>{plan.name}</Row>
-                            <Row>{plan.users}</Row>
-                            <Row>{plan.features}</Row>
-                            <Row>{plan.storage}</Row>
-                            <Row>{plan.price}</Row>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-      </Accordion.Body>
-    </Accordion.Item>
-  );
-};
+      return (
+        <Accordion.Item eventKey="0" className="accordion-item">
+          <Accordion.Header onClick={toggleSubscription} className="accordion-item-header">
+            <Col xs={9}>
+              <span className="settings-header">Subscription Plan</span>
+            </Col>
+            <Col xs={2}>
+              <Button
+                onClick={(e) => { e.stopPropagation(); goToPayment(); }}
+                className="ms-auto"
+                style={{ backgroundColor: "rgb(62,30,65)", color: 'white', border: 'none', borderRadius: '5px' }}>
+                Edit Payment Method
+              </Button>
+            </Col>
+          </Accordion.Header>
+          <Accordion.Body>
+            {isSubscriptionOpen && (
+              <div className="content">
+                <div className="subscription-cards d-flex">
+                  {subscriptionPlans.map((plan, index) => (
+                    <Card
+                      key={index}
+                      className={`card mx-2 ${plan.name === subscription ? 'highlighted-card' : ''}`}
+                      onClick={() => handleCardClick(plan)}
+                    >
+                      <Row>{plan.name}</Row>
+                      <Row>{plan.users}</Row>
+                      <Row>{plan.features}</Row>
+                      <Row>{plan.storage}</Row>
+                      <Row>{plan.price}</Row>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+          </Accordion.Body>
+        </Accordion.Item>
+      );
+    };
 
 export default SubscriptionPlanAccordion;

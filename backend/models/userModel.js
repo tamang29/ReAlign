@@ -22,7 +22,7 @@ const userSchema = new Schema({
       //the user could be an orgnization creater(orgnizer) or a member of the organization or no role
       role: {
         type: String, default: null,
-        enum: ['orgnizer', 'member', null],
+        enum: ['Admin', 'Member', null],
       },
       photo: {
         type: String,
@@ -30,7 +30,7 @@ const userSchema = new Schema({
       },
       isVerified: {type: Boolean, default: false},
       token: {type: String, default: null},
-      orgnization: {type: String, default: null}
+      organization: {type: String, default: null}
 
 }, {collection: "users"},{timestamps: true});
 

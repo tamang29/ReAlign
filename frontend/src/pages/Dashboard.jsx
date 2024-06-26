@@ -4,6 +4,7 @@ import Project from "../components/Project/Project";
 import Payment from "./Payment";
 import Settings from "./Settings";
 import '../styles/style.css';
+import '../styles/SideBar.css'
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/ErrorPages/NotFound";
 

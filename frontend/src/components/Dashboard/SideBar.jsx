@@ -1,16 +1,20 @@
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import SideBarItems from './SideBarItems';
 import UserContext from '../../context/UserContext';
 
 const SideBar = () => {
     const navigate = useNavigate();
     const [user] = useContext(UserContext);
-
+    const [profilePic, setProfilePic] = useState(`${process.env.PUBLIC_URL}/defaultProfilePic.png`);
 
     const handleUpgradePress = () => {
         navigate("/dashboard/settings", { state: { openSubscription: true } });
+    };
+
+    const handleProfileSettingsClick = () => {
+        navigate("/dashboard/settings", { state: { openProfileSettings: true } });
     };
 
     return (
@@ -22,14 +26,25 @@ const SideBar = () => {
                 <SideBarItems />
             </Row>
             <Row className="mx-5 my-4 justify-content-center">
-                <Col className="d-flex flex-column align-items-center mt-auto">
-                    <Image src='' alt="User" roundedCircle style={{ width: '100px', height: '100px' }} />
+                <Col className="d-flex flex-column align-items-center">
+                    <Image 
+                        src={profilePic} 
+                        alt="User" 
+                        roundedCircle 
+                        style={{ width: '100px', height: '100px' }} 
+                        className="mb-2"
+                        onClick={handleProfileSettingsClick}
+                    />
                     {user && (
-                        <Row className="text-center my-2">
+                        <div className="text-center mb-2">
                             {`${user.firstName || ' '} ${user.lastName || ' '}`}
-                        </Row>
+                        </div>
                     )}
-                    <Button className="mt-2" style={{ backgroundColor: "rgb(62,30,65)", border: 'none' }} onClick={handleUpgradePress}>
+                    <Button 
+                        className="mt-auto" 
+                        style={{ backgroundColor: "rgb(62,30,65)", border: 'none', width: '150px' }} 
+                        onClick={handleUpgradePress}
+                    >
                         Upgrade
                     </Button>
                 </Col>
