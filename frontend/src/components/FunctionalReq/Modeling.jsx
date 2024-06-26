@@ -33,8 +33,12 @@ const Modeling = () => {
             colorEnabled: true,
             scale: 1.0,
         };
+        try{
         const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
         console.log(ApolloEditor)
+        }catch(error){
+            console.error(error);
+        }
         setEditorActive(true)
     };
 

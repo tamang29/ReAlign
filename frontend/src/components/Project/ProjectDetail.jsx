@@ -4,8 +4,9 @@ import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProjectById, updateProject } from "../../services/projectService";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getAllUsers } from "../../services/userService";
 
 
 
@@ -32,6 +33,13 @@ const ProjectDetail = () =>{
     //user id to delete
     const [userIdToDelete, setUserIdToDelete] = useState(null);
 
+    //selected user to invite
+
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+
+    //user list
+    const [userList, setUserList] = useState(null);
+
     // get project data with id
     useEffect(()=>{
         const fetchProjectById = async () =>{
@@ -42,7 +50,16 @@ const ProjectDetail = () =>{
                 console.error("Error fetching project data." +error)
             }
         }
+        const fetchUsers = async () =>{
+            try{
+                const userList = await getAllUsers();
+                setUserList(userList);
+            }catch(error){
+                console.error("Error fetching users." +error);
+            }
+        }
         fetchProjectById();
+        fetchUsers();
     },[projectId])
 
 
@@ -89,6 +106,7 @@ const ProjectDetail = () =>{
 
     const handleUserDelete = async () =>{
         if(userIdToDelete){
+            console.log(userIdToDelete)
 
             const updatedProject = {
                 ...project,
@@ -103,6 +121,31 @@ const ProjectDetail = () =>{
                 console.error("Error while deleting user."+error);
             }
             setDeleteShow(false);
+        }
+    }
+
+    //When user wants to add new user
+    const handleUserFocus = () => {
+        if (project.users.length > 0) {
+          setDropdownVisible(true);
+        }
+      };
+
+    const handleUserBlur = () => {
+    setDropdownVisible(false);
+    };
+
+    //add user
+    const handleAddUser = (e, user) =>{
+        e.preventDefault();
+        console.log("add users")
+        if (!project.users.some(u => u.member._id === user._id)) {
+            setProject(prevProject => ({
+                ...prevProject,
+                users: [...prevProject.users, {member: user, role:''}]
+            }))
+            setDropdownVisible(false)
+            console.log(project)
         }
     }
 
@@ -193,15 +236,47 @@ const ProjectDetail = () =>{
                                     />
                                     </Form.Group>
 
+
                                 <Form.Group controlId="formMember">
-                                     <Form.Label>Team Members</Form.Label>
+                                     <Form.Label>Team Members </Form.Label>
+                                     <Form.Control
+                                        type="text"
+                                        name="users"
+                                        onFocus={handleUserFocus}
+                                        onBlur={handleUserBlur}
+
+                                    />
+
+
+                                        {dropdownVisible && (
+                                            <ListGroup
+                                            style={{
+                                                height: '10rem',
+                                                overflowY: 'scroll'
+                                            }}
+                                            >
+                                            {userList.map((user, index) => (
+                                                <ListGroup.Item
+                                                key={user._id}
+                                                name="role"
+                                                onMouseDown={(e) => e.preventDefault()} // Prevent blur on item click
+                                                style={{ cursor: 'pointer', fontSize: 12}}
+                                                onClick={(e)=>handleAddUser(e, user)}
+                                                action
+                                                >
+                                                {user.email}
+
+                                                </ListGroup.Item>
+                                            ))}
+                                            </ListGroup>
+                                        )}
                                         <ListGroup
                                         style={{
                                             height: '10rem',
                                             overflowY: 'scroll'
                                         }}
                                         >
-                                        {project.users.map((user) => (
+                                        {project.users && project.users.map((user) => (
                                             <ListGroup.Item key={user.member._id} className="d-flex justify-content-between align-items-center" style={{fontSize:12}}>
                                             {user.member.firstName}  {user.member.lastName}<br/>
                                             {user.member.email}
@@ -214,7 +289,7 @@ const ProjectDetail = () =>{
                                             className="w-25"
                                             style={{fontSize:12}}
                                             >
-
+                                            <option>--select--</option>
                                             <option>Owner</option>
                                             <option>Editor</option>
                                             <option>Reader</option>
