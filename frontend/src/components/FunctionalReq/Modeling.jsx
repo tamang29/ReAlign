@@ -57,17 +57,17 @@ const Modeling = () => {
                 <Col>
                     <Form.Select aria-label="Default select example" onChange={onModelSelect}>
                         <option>select a model</option>
-                        <option value="ClassDiagram">ClassDiagram</option>
-                        <option value="ObjectDiagram">ObjectDiagram</option>
-                        <option value="ActivityDiagram">ActivityDiagram</option>
-                        <option value="UseCaseDiagram">UseCaseDiagram</option>
-                        <option value="CommunicationDiagram">CommunicationDiagram</option>
-                        <option value="ComponentDiagram">ComponentDiagram</option>
-                        <option value="DeploymentDiagram">DeploymentDiagram</option>
+                        <option value="ClassDiagram">Class Diagram</option>
+                        <option value="ObjectDiagram">Object Diagram</option>
+                        <option value="ActivityDiagram">Activity Diagram</option>
+                        <option value="UseCaseDiagram">Use Case Diagram</option>
+                        <option value="CommunicationDiagram">Communication Diagram</option>
+                        <option value="ComponentDiagram">Component Diagram</option>
+                        <option value="DeploymentDiagram">Deployment Diagram</option>
                         <option value="PetriNet">PetriNet</option>
-                        <option value="ReachabilityGraph">ReachabilityGraph</option>
-                        <option value="SyntaxTree">SyntaxTree</option>
-                        <option value="Flowchart">Flowchart</option>
+                        <option value="ReachabilityGraph">Reachability Graph</option>
+                        <option value="SyntaxTree">Syntax Tree</option>
+                        <option value="Flowchart">Flow Chart</option>
                         <option value="BPMN">BPMN</option>
 
                     </Form.Select>
