@@ -126,9 +126,7 @@ const ProjectDetail = () =>{
 
     //When user wants to add new user
     const handleUserFocus = () => {
-        if (project.users.length > 0) {
           setDropdownVisible(true);
-        }
       };
 
     const handleUserBlur = () => {
