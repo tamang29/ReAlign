@@ -23,6 +23,9 @@ const Project = () =>{
     //search bar
     const [searchText, setSearchText] = useState('');
 
+    //filter visible option
+    const [filterVisible , setFilterVisible] = useState(false);
+
     const navigate = useNavigate();
 
     //Fetch project list from backend
@@ -80,19 +83,27 @@ const Project = () =>{
         fetchProjects();
     };
 
-    //description
+    // navigate to show project details
     const showProjectDetail = (projectId) =>{
         console.log("description of:" +projectId);
         navigate(`/dashboard/${projectId}`)
     }
 
+    //toggle filterVisible when filter icon is pressed
+    const handleFilterVisible = () => {
+        if(!filterVisible){
+        setFilterVisible(true);
+        }else{
+        setFilterVisible(false);
+        }
+    }
 
     return(
         <Container fluid>
             <BreadCrumbRow/>
             <Header title="Your Projects" />
             <ProjectPopupForm show={show} handleFormClose={handleFormClose} updateProjects={updateProjects} users={users}/>
-            <SearchBar searchText={searchText} handleSearch={handleSearch} changeShow={handleFormShow}/>
+            <SearchBar searchText={searchText} handleSearch={handleSearch} changeShow={handleFormShow} filterVisible={filterVisible} handleFilterVisible={handleFilterVisible}/>
             {loading ? (
                 <div className="text-center">
                     <Spinner animation="border" role="status">
