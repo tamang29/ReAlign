@@ -4,7 +4,7 @@ import Header from "../Dashboard/Header";
 import { useEffect, useRef ,useState} from 'react';
 import { ApollonEditor, UMLDiagramType, ApollonMode, Locale} from '@ls1intum/apollon';
 import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
-import { exportSvgToPDF } from "../../services/exportService";
+import { downloadAsPDF, convertSvgToPDF } from "../../services/exportService";
 
 
 const Modeling = () => {
@@ -54,11 +54,17 @@ const Modeling = () => {
         try{
         const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
         setApollonEditor(ApolloEditor)
+
+        const subscriptionId = ApolloEditor.subscribeToModelChange((model) => {
+            console.log("Model changed", model);
+            // Handle model changes here
+        });
+
         }catch(error){
             console.error(error);
         }
         setEditorActive(true)
-    }, []);
+    }, [selectedUML]);
 
     const handleCreateModel = (event) => {
 
@@ -121,16 +127,17 @@ const Modeling = () => {
     if (apollonEditor) {
         const apollonSVG = await apollonEditor.exportAsSVG();
         const {width, height} = apollonSVG.clip;
-        console.log(width);
 
         try {
-            const response = await exportSvgToPDF(apollonSVG);
-
-            console.log(response)
-
-        } catch (error) {
+            const pdfBlob = await convertSvgToPDF(apollonSVG.svg, width, height); //convert svg to pdf
+            try{
+            downloadAsPDF(pdfBlob, fileName); //Download as PDF
+            }catch(error){
+                console.error('Error downloading as PDF', error);
+            }
+          } catch (error) {
             console.error('Error exporting PDF:', error);
-        }
+          }
     }
 
   };
