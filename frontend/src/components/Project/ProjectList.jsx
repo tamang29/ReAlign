@@ -7,7 +7,7 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 const ProjectList = ({projects, handleProjectClick, showProjectDetail}) => {
 
     return (
-        <Row>
+        <Row className='mt-5'>
             <Col md={11} className='project-table-container'>
                 <Table responsive="md" hover size="sm" className="project-table">
                     <thead>
