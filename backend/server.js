@@ -3,7 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import db from "./db/connection.js"
 import userRoutes from './routes/user.js';
-import projectRoutes from './routes/project.js'
+import projectRoutes from './routes/project.js';
+import exportRoutes from './routes/export.js';
 
 
 dotenv.config({path: './config.env'});
@@ -18,6 +19,7 @@ app.use(express.json());
 //custom routes
 app.use('/api/user',userRoutes);
 app.use('/api/project', projectRoutes);
+app.use('/api/export', exportRoutes);
 
 //Connect to mongodb atlas
 db.then(()=>{
