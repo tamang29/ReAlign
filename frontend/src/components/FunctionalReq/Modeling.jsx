@@ -1,13 +1,15 @@
 import React from "react";
-import { Container ,Button, Form, Row,Col, Nav, Navbar, NavDropdown, Modal, ListGroup} from "react-bootstrap";
-import Header from "../Dashboard/Header";
+import { Container ,Button, Form, Row, Nav, Navbar, NavDropdown, Modal, ListGroup} from "react-bootstrap";
 import { useEffect, useRef ,useState} from 'react';
 import { ApollonEditor, UMLDiagramType, ApollonMode, Locale} from '@ls1intum/apollon';
 import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
-import { exportSvgToPDF } from "../../services/exportService";
+import { downloadAsPDF, convertSvgToPDF, saveNewDiagram } from "../../services/diagramService";
+import { useParams } from "react-router-dom";
 
 
 const Modeling = () => {
+
+    const param = useParams();
     const editorContainerRef = useRef(null);
     const [isEditorActive, setEditorActive] = useState(false);
 
@@ -21,6 +23,7 @@ const Modeling = () => {
 
     //new file name and diagram selected by user
     const [fileName, setFileName] = useState('ClassDiagram');
+    //form validation
     const [validated, setValidated] = useState(false);
 
     const diagramTypes = [
@@ -54,11 +57,12 @@ const Modeling = () => {
         try{
         const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
         setApollonEditor(ApolloEditor)
+
         }catch(error){
             console.error(error);
         }
         setEditorActive(true)
-    }, []);
+    }, [selectedUML]);
 
     const handleCreateModel = (event) => {
 
@@ -117,23 +121,45 @@ const Modeling = () => {
     setValidated(false);
   };
 
+  //export model as pdf
   const handleExport = async() => {
     if (apollonEditor) {
         const apollonSVG = await apollonEditor.exportAsSVG();
         const {width, height} = apollonSVG.clip;
-        console.log(width);
 
         try {
-            const response = await exportSvgToPDF(apollonSVG);
-
-            console.log(response)
-
-        } catch (error) {
+            const pdfBlob = await convertSvgToPDF(apollonSVG.svg, width, height); //convert svg to pdf
+            try{
+            downloadAsPDF(pdfBlob, fileName); //Download as PDF
+            }catch(error){
+                console.error('Error downloading as PDF', error);
+            }
+          } catch (error) {
             console.error('Error exporting PDF:', error);
-        }
+          }
     }
 
   };
+
+  //save to mongodb
+  const handleSaveModel = async() =>{
+    const apollonSVG = await apollonEditor.exportAsSVG();
+    const diagram = {
+        projectId: param.projectId,
+        svg: apollonSVG.svg,
+        fileName: fileName,
+        type: selectedUML,
+        createdBy: '664cf4de7e3db63be5771215'
+    }
+    try{
+    const newDiagram = await saveNewDiagram(diagram);
+    }catch(error){
+        console.error("error saving diagram to DB.", error);
+    }
+
+  }
+
+
 
     return (
         <Container fluid style={{ height: '100vh'}}>
@@ -146,12 +172,14 @@ const Modeling = () => {
                     <Nav className="me-auto">
                         <NavDropdown title="File" id="basic-nav-dropdown">
                             <NavDropdown.Item onClick={handleModalOpen}>New</NavDropdown.Item>
+                            <NavDropdown.Item onClick={handleSaveModel}>
+                                Save
+                            </NavDropdown.Item>
                             <NavDropdown.Item onClick={handleExport}>
-                                Export
+                                Export as PDF
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
+
                         {fileName? (
                             <Nav.Link disabled className="text-dark fw-bold">{fileName}</Nav.Link>
                         ): (
