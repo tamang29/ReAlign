@@ -1,5 +1,27 @@
 import PDFDocument from 'pdfkit';
 import svgToPdf from 'svg-to-pdfkit';
+import Diagram from '../models/diagramModel.js';
+
+
+const createNewDiagram = (req, res)=>{
+  const {projectId, svg, fileName, type, createdBy} =  req.body;
+  if(!projectId || !svg || !fileName || !type || !createdBy){
+    res.status(400).json({msg: "missing important data while saving the diagram."});
+  }
+  try{
+    const diagram = {
+      projectId: projectId,
+      svg: svg,
+      fileName: fileName,
+      type: type,
+      createdBy: createdBy,
+      lastUpdatedBy: createdBy
+    }
+    Diagram.create(diagram);
+  }catch(error){
+    res.status(500).json(error);
+  }
+}
 
 const convertSvgToPDF = (req, res) =>{
     const { svg, width, height } = req.body;
@@ -24,4 +46,4 @@ const convertSvgToPDF = (req, res) =>{
 
 }
 
-export {convertSvgToPDF};
+export {createNewDiagram,convertSvgToPDF};
