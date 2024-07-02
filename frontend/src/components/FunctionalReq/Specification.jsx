@@ -40,6 +40,7 @@ const Specification = () => {
   };
 
   const handleSave = (newContent) => {
+    setContent(newContent);
   };
 
   const handleExportAsPDF = () => {
@@ -49,6 +50,7 @@ const Specification = () => {
       return;
     }
 
+    // Create options for PDF export
     const opt = {
       margin: 1,
       filename: 'specification.pdf',
@@ -58,7 +60,15 @@ const Specification = () => {
       pagebreak: { mode: ['css', 'legacy'] },
     };
 
-    html2pdf().set(opt).from(contentElement).toPdf().save();
+    // Exclude toolbar and other UI elements from PDF
+    const editorContentClone = contentElement.cloneNode(true);
+    const toolbar = editorContentClone.querySelector('.rdw-editor-toolbar');
+    if (toolbar) {
+      toolbar.remove();
+    }
+
+    // Perform PDF export
+    html2pdf().set(opt).from(editorContentClone).save();
   };
 
   return (
