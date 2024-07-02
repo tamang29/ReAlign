@@ -6,6 +6,9 @@ import userRoutes from './routes/user.js';
 import projectRoutes from './routes/project.js';
 import diagramRoutes from './routes/diagram.js';
 
+import subscriptionRoutes from './routes/subscription.js';
+import organizationRoutes from './routes/organization.js';
+import authRoutes from './routes/auth.js';
 
 
 dotenv.config({path: './config.env'});
@@ -21,6 +24,10 @@ app.use(express.json());
 app.use('/api/user',userRoutes);
 app.use('/api/project', projectRoutes);
 app.use('/api/diagram', diagramRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/subscription', subscriptionRoutes);
+app.use('/api/organization', organizationRoutes);
+app.use('/api/auth', authRoutes);
 
 //Connect to mongodb atlas
 db.then(()=>{

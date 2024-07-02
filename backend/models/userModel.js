@@ -20,10 +20,19 @@ const userSchema = new Schema({
         type: String,
         required: true
       },
+      //the user could be an orgnization creater(orgnizer) or a member of the organization or no role
+      role: {
+        type: String, default: null,
+        enum: ['Admin', 'Member', null],
+      },
       photo: {
         type: String,
         required: false
-      }
+      },
+      isVerified: {type: Boolean, default: false},
+      token: {type: String, default: null},
+      organization: {type: String, default: null}
+
 }, {collection: "users"},{timestamps: true});
 
 const User = mongoose.model('User', userSchema);

@@ -7,6 +7,7 @@ import '../styles/style.css';
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProjectDetail from "../components/Project/ProjectDetail";
 import Requirements from "./Requirements";
+import '../styles/SideBar.css'
 import NotFound from "../components/ErrorPages/NotFound";
 import Elicitation from "../components/FunctionalReq/Elicitation";
 

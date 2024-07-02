@@ -5,16 +5,19 @@ const organizationSchema = new Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    users: [userSchema],
+    // email: {
+    //     type: String,
+    //     unique: true,
+    //     required: true
+    // }, // eliminated through Admin User
+    // password: {
+    //     type: String,
+    //     required: true
+    // }, // eliminated through Admin User
+    // users: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User'
+    // }], // is now handled through the user objects
     payment: [{
         paymentMethod: {
             type: String,
@@ -23,7 +26,14 @@ const organizationSchema = new Schema({
         },
         paymentDetails: String
     }],
-    subscription: subscriptionSchema
+    subscription: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subscription'
+    },
+    nextSubscription: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subscription'
+    }
     //, logo: file
 });
 
