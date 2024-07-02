@@ -3,6 +3,7 @@ import {Row, Col, Button, Form, Modal, Toast,ToastContainer,ListGroup} from 'rea
 import { createProject } from "../../services/projectService";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ToastMessage from "../Modal/ToastMessage";
 
 
 const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
@@ -110,6 +111,10 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
             })
         }))
     }
+
+    const handleCloseToast = () =>{
+        setShowToast(false);
+      }
 
     return(
         <>
@@ -260,19 +265,12 @@ const ProjectPopupForm = ({show, handleFormClose, updateProjects, users}) =>{
             </Modal.Footer>
         </Form>
       </Modal>
-      <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
-        <Toast show={showToast} onClose={() => setShowToast(false)}>
-          <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded me-2"
-              alt=""
-            />
-            <strong className="me-auto">Project</strong>
-          </Toast.Header>
-          <Toast.Body>Project created successfully</Toast.Body>
-        </Toast>
-      </ToastContainer>
+      {showToast && <ToastMessage
+                header="Success"
+                body="Project created successfully"
+                handleCloseToast={handleCloseToast}
+
+         />}
     </>
     )
 }

@@ -8,7 +8,7 @@ const createNewDiagram = (req, res)=>{
   if(!projectId || !svg || !fileName || !type || !createdBy){
     res.status(400).json({msg: "missing important data while saving the diagram."});
   }
-  try{
+
     const diagram = {
       projectId: projectId,
       svg: svg,
@@ -17,10 +17,23 @@ const createNewDiagram = (req, res)=>{
       createdBy: createdBy,
       lastUpdatedBy: createdBy
     }
-    Diagram.create(diagram);
-  }catch(error){
-    res.status(500).json(error);
+    Diagram.create(diagram).then(()=>{
+      res.status(200).json({msg: "Diagram saved successfully."});
+    }).catch((err)=>{
+      console.log(err)
+    });
+}
+
+const getDiagramByProject = async(req, res) => {
+  const {projectId} = req.params;
+  try{
+    const diagrams = await Diagram.find({projectId}).sort({ updatedAt: -1 });;
+    res.status(200).json(diagrams);
+
+  }catch(err){
+    throw err;
   }
+
 }
 
 const convertSvgToPDF = (req, res) =>{
@@ -46,4 +59,4 @@ const convertSvgToPDF = (req, res) =>{
 
 }
 
-export {createNewDiagram,convertSvgToPDF};
+export {createNewDiagram,convertSvgToPDF, getDiagramByProject};

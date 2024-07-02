@@ -13,6 +13,16 @@ const saveNewDiagram = async(diagram) => {
     }
 }
 
+//get diagrams by project id
+const getDiagramByProject = async(projectId) =>{
+    try{
+        const response = await axios.get(`${API_URL}/${projectId}`);
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}
+
 
 const convertSvgToPDF = async(svg, width, height) =>{
     const requestBody = { svg, width, height };
@@ -44,4 +54,4 @@ const downloadAsPDF = (pdfBlob, fileName) =>{
 }
 
 
-export {convertSvgToPDF, downloadAsPDF,saveNewDiagram};
+export {convertSvgToPDF, downloadAsPDF,saveNewDiagram, getDiagramByProject};

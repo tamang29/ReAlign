@@ -1,10 +1,13 @@
 import React from "react";
 import { Container ,Button, Form, Row, Nav, Navbar, NavDropdown, Modal, ListGroup} from "react-bootstrap";
 import { useEffect, useRef ,useState} from 'react';
-import { ApollonEditor, UMLDiagramType, ApollonMode, Locale} from '@ls1intum/apollon';
+import { ApollonEditor, UMLDiagramType, ApollonMode, Locale,UMLModel} from '@ls1intum/apollon';
 import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
-import { downloadAsPDF, convertSvgToPDF, saveNewDiagram } from "../../services/diagramService";
+import { downloadAsPDF, convertSvgToPDF, saveNewDiagram, getDiagramByProject } from "../../services/diagramService";
 import { useParams } from "react-router-dom";
+import ToastMessage from "../Modal/ToastMessage";
+import OpenDiagramModal from "../Modal/OpenDiagramModal";
+
 
 
 const Modeling = () => {
@@ -16,7 +19,8 @@ const Modeling = () => {
     //apollon editor
     const [apollonEditor, setApollonEditor] = useState(null);
     //selected UML type
-    const [selectedUML, setSelectedUML] = useState('ClassDiagram');
+    const [defaultUML, setdefaultUML] = useState('ClassDiagram');
+    const [modelType, setModelType] = useState('ClassDiagram');
 
     //show create new modal form
     const [showCreateModal , setShowCreateModal] = useState(false);
@@ -25,6 +29,14 @@ const Modeling = () => {
     const [fileName, setFileName] = useState('ClassDiagram');
     //form validation
     const [validated, setValidated] = useState(false);
+
+    //Toast state
+    const [showToast, setShowToast] = useState(false);
+    const [toastBody, setToastBody] = useState('');
+
+    //open diagrams state
+    const [diagrams, setDiagrams]= useState([]);
+    const [showDiagramModal, setShowDiagramModal] = useState(false);
 
     const diagramTypes = [
         { id: 'ClassDiagram', label: 'Class Diagram' },
@@ -43,7 +55,7 @@ const Modeling = () => {
 
     useEffect(() => {
         const options = {
-            type: UMLDiagramType[selectedUML],
+            type: UMLDiagramType[defaultUML],
             mode: ApollonMode,
             readonly: false,
             enablePopups: true,
@@ -62,7 +74,7 @@ const Modeling = () => {
             console.error(error);
         }
         setEditorActive(true)
-    }, [selectedUML]);
+    }, [defaultUML]);
 
     const handleCreateModel = (event) => {
 
@@ -79,7 +91,7 @@ const Modeling = () => {
             apollonEditor.destroy();
         }
         const options = {
-            type: UMLDiagramType[selectedUML],
+            type: UMLDiagramType[modelType],
             mode: ApollonMode,
             readonly: false,
             enablePopups: true,
@@ -110,8 +122,8 @@ const Modeling = () => {
         setShowCreateModal(false);
    }
    //set diagram type and set it to active
-   const handleDiagramTypeSelect = (eventKey) => {
-    setSelectedUML(eventKey);
+   const handleDiagramTypeSelect = (type) => {
+    setModelType(type);
     setValidated(false);
   };
 
@@ -120,6 +132,10 @@ const Modeling = () => {
     setFileName(event.target.value);
     setValidated(false);
   };
+
+  const handleCloseToast = () =>{
+    setShowToast(false);
+  }
 
   //export model as pdf
   const handleExport = async() => {
@@ -148,16 +164,60 @@ const Modeling = () => {
         projectId: param.projectId,
         svg: apollonSVG.svg,
         fileName: fileName,
-        type: selectedUML,
+        type: modelType,
         createdBy: '664cf4de7e3db63be5771215'
     }
     try{
-    const newDiagram = await saveNewDiagram(diagram);
+    saveNewDiagram(diagram).then((response)=>{
+        if(response.status === 200){
+            setToastBody(response.data.msg)
+            setShowToast(true);
+        }
+    });
+
     }catch(error){
         console.error("error saving diagram to DB.", error);
     }
 
   }
+
+  const fetchDiagrams = async() =>{
+    try{
+    const diagrams = await getDiagramByProject(param.projectId);
+    console.log(diagrams)
+    setDiagrams(diagrams)
+    setShowDiagramModal(true);
+    }catch(error){
+       console.log(error)
+    }
+  }
+
+  const viewDiagram = async(diagram) =>{
+    console.log(diagram)
+    if(apollonEditor){
+        apollonEditor.destroy();
+    }
+    const options = {
+        type: UMLDiagramType[diagram.type],
+        mode: ApollonMode,
+        readonly: false,
+        enablePopups: true,
+        model: null,
+        theme: {},
+        locale: Locale.English,
+        copyPasteToClipboard: true,
+        colorEnabled: true,
+        scale: 1.0,
+    };
+    try{
+    const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
+    setApollonEditor(ApolloEditor)
+    setFileName(diagram.fileName)
+    }catch(error){
+        console.error(error);
+    }
+  }
+  const closeOpenDiagramModal = () => setShowDiagramModal(false);
 
 
 
@@ -172,6 +232,9 @@ const Modeling = () => {
                     <Nav className="me-auto">
                         <NavDropdown title="File" id="basic-nav-dropdown">
                             <NavDropdown.Item onClick={handleModalOpen}>New</NavDropdown.Item>
+                            <NavDropdown.Item onClick={fetchDiagrams}>
+                                Open
+                            </NavDropdown.Item>
                             <NavDropdown.Item onClick={handleSaveModel}>
                                 Save
                             </NavDropdown.Item>
@@ -215,7 +278,7 @@ const Modeling = () => {
                             key={type.id}
                             action
                             href={`#${type.id}`}
-                            active={selectedUML === type.id}
+                            active={modelType === type.id}
                             onClick={() => handleDiagramTypeSelect(type.id)}
 
                             >
@@ -231,6 +294,13 @@ const Modeling = () => {
 
                 </Modal.Body>
             </Modal>
+            {showToast && <ToastMessage
+                header="Success"
+                body={toastBody}
+                handleCloseToast= {handleCloseToast}
+            /> }
+
+            {showDiagramModal && <OpenDiagramModal diagrams={diagrams} closeOpenDiagramModal={closeOpenDiagramModal} viewDiagram={viewDiagram}/>}
             </Row>
         </Container>
     );

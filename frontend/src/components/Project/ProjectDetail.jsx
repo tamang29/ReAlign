@@ -7,7 +7,7 @@ import { getProjectById, updateProject } from "../../services/projectService";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAllUsers } from "../../services/userService";
-
+import ToastMessage from "../Modal/ToastMessage";
 
 
 const ProjectDetail = () =>{
@@ -146,6 +146,10 @@ const ProjectDetail = () =>{
             console.log(project)
         }
     }
+
+    const handleCloseToast = () =>{
+        setShowToast(false);
+      }
 
 
     return(
@@ -333,14 +337,11 @@ const ProjectDetail = () =>{
                         </Col>
                     </Row>
             </Form>
-            <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
-            <Toast show={showToast} onClose={() => setShowToast(false)}>
-            <Toast.Header>
-                <strong className="me-auto">Project</strong>
-            </Toast.Header>
-            <Toast.Body>Project updated successfully</Toast.Body>
-            </Toast>
-            </ToastContainer>
+            {showToast && <ToastMessage
+                header="Success"
+                body="Project details updated"
+                handleCloseToast= {handleCloseToast}
+            /> }
             <Modal
                 show={showDelete}
                 onHide={handleDeleteClose}
