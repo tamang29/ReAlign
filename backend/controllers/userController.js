@@ -51,7 +51,7 @@ const getUserById = async (req, res) => {
     } catch (error) {
       return res.status(500).json({ message: 'Server error', error });
     }
-    
+
   };
 
   const updateUser = async (req, res) => {
@@ -84,7 +84,7 @@ const getUserById = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
-  
+
 
 
 export {createUser, getAllUser, deleteUser, getUserById, updateUser};

@@ -4,9 +4,12 @@ import Project from "../components/Project/Project";
 import Payment from "./Payment";
 import Settings from "./Settings";
 import '../styles/style.css';
+import { Route, Routes, Navigate } from "react-router-dom";
+import ProjectDetail from "../components/Project/ProjectDetail";
+import Requirements from "./Requirements";
 import '../styles/SideBar.css'
-import { Route, Routes } from "react-router-dom";
 import NotFound from "../components/ErrorPages/NotFound";
+import Elicitation from "../components/FunctionalReq/Elicitation";
 
 
 const Dashboard = () =>{
@@ -21,7 +24,7 @@ const Dashboard = () =>{
                     <Container fluid className="mainview-container p-0">
                     <Routes>
                         <Route path="/" element={<Project/>}/>
-                        <Route path="/dashboard" element={<Project/>}/>
+                        <Route path="/:projectId" element={<ProjectDetail/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                         <Route path="/settings/payment" element={<Payment/>}/>
                     </Routes>

@@ -3,6 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import db from "./db/connection.js"
 import userRoutes from './routes/user.js';
+import projectRoutes from './routes/project.js';
+import diagramRoutes from './routes/diagram.js';
+
 import subscriptionRoutes from './routes/subscription.js';
 import organizationRoutes from './routes/organization.js';
 import authRoutes from './routes/auth.js';
@@ -16,6 +19,7 @@ dotenv.config({ path: './config.env' });
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+
 
 // Middleware
 app.use(cors());
@@ -36,18 +40,14 @@ db.then(() => {
 });
 
 
-app.use(cors());
-app.use(express.json());
+//custom routes
+app.use('/api/user',userRoutes);
+app.use('/api/project', projectRoutes);
+app.use('/api/diagram', diagramRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/organization', organizationRoutes);
-app.use('/api/auth', authRoutes); 
+app.use('/api/auth', authRoutes);
 app.use("/api/elicitation", elicitationRoutes);
 app.use("/api/file", fileRoutes);
 
-
-// Default route
-app.get("/", (req, res) => {
-    res.send("Welcome to home page. Team 41.");
-  });
-  

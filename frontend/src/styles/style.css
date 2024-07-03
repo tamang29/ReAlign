@@ -15,10 +15,17 @@ body {
 
 .dashboard-container .mainview-container {
     height: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
     background-color: rgb(219, 231, 234);
 }
 
 /* Project view style */
+.project-table-container{
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
 .project-table thead tr th {
     background-color: rgb(219, 231, 234);
 }
@@ -62,3 +69,15 @@ body {
 .file-table td {
     background-color: rgb(219, 231, 234);
 }
+
+/* upload file table content */
+.file-table th, .file-table td{
+    background-color: rgb(219, 231, 234);
+}
+
+
+/*Apollon Editor*/
+.apollon-editor{
+    height: 100vh;
+}
+
