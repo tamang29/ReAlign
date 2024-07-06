@@ -3,15 +3,16 @@ import Header from "../Dashboard/Header";
 import ProjectList from "./ProjectList";
 import SearchBar from "../Dashboard/SearchBar";
 import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { getAllProjects } from "../../services/projectService";
 import { useNavigate } from 'react-router-dom';
 import ProjectPopupForm from "./ProjectPopupForm";
 import { getAllUsers } from "../../services/userService";
-
+import {UserProvider} from "../../context/UserContext";
 
 const Project = () =>{
+    const user = useContext(UserProvider);
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]); //search bar filtered projects
     const [users, setUsers] = useState([]);
@@ -30,6 +31,7 @@ const Project = () =>{
 
     //Fetch project list from backend
     const fetchProjects = async() =>{
+        console.log(user);
         try{
             const projectList = await getAllProjects();
             setProjects(projectList);
