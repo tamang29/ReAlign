@@ -36,11 +36,6 @@ const Project = () =>{
 
     //Fetch project list from backend
     const fetchProjects = async() =>{
-<<<<<<< HEAD
-        console.log(user);
-=======
-
->>>>>>> week5
         try{
             const projectList = await getAllProjects(user[0]._id);
             setProjects(projectList);
