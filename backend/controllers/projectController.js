@@ -3,8 +3,10 @@ import { getUserById } from "./userController.js";
 
 
 const getAllProjects = async (req, res) => {
+    const id = req.query.id;
+    console.log(id)
     try {
-        const projects = await Project.find();
+        const projects = await Project.find({'users.member': id });
         res.json(projects);
     } catch (err) {
         res.status(500).json({ message: err.message });

@@ -4,19 +4,21 @@ import Diagram from '../models/diagramModel.js';
 
 
 const createNewDiagram = (req, res)=>{
-  const {projectId, svg, fileName, type, createdBy} =  req.body;
-  if(!projectId || !svg || !fileName || !type || !createdBy){
+  const {projectId, model, fileName, type, createdBy} =  req.body;
+  if(!projectId || !model || !fileName || !type || !createdBy){
     res.status(400).json({msg: "missing important data while saving the diagram."});
   }
-
     const diagram = {
       projectId: projectId,
-      svg: svg,
+      model: model,
       fileName: fileName,
       type: type,
       createdBy: createdBy,
       lastUpdatedBy: createdBy
     }
+    
+    console.log(diagram)
+
     Diagram.create(diagram).then(()=>{
       res.status(200).json({msg: "Diagram saved successfully."});
     }).catch((err)=>{

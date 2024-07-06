@@ -40,7 +40,7 @@ export const registerUser = async (req, res) => {
 // Verify user email
 export const verifyUser = async (req, res) => {
     const { token } = req.body;
-
+    console.log("hello")
     if (!token) {
         return res.status(400).json({ message: 'No token provided' });
     }
