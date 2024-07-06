@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Row,Col, Badge } from "react-bootstrap";
 import Header from "../Dashboard/Header";
 import { Editor, EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import "../../styles/FunctionalReq.css";
 import FileUpload from "./FileUpload";
+import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
+import UserStory from "./UserStory";
+import { useParams } from "react-router-dom";
 
-const projectId = '1';  // Hardcoded project ID
+
 
 const Elicitation = () => {
+    const params = useParams();
+    const projectId = params.projectId;
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
     const [files, setFiles] = useState([]);
     const [placeholderText, setPlaceholderText] = useState("A space to gather all functional requirements - You can tag the others here");
     const [error, setError] = useState(null);
+
 
     useEffect(() => {
         const fetchElicitation = async () => {
@@ -100,7 +106,9 @@ const Elicitation = () => {
 
     return (
         <Container>
+            <BreadCrumbRow/>
             <Header title="Elicitation" />
+
             <div className="fr-button-container">
                 <Button onClick={handleSave}>Update</Button>
             </div>

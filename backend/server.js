@@ -5,6 +5,7 @@ import db from "./db/connection.js"
 import userRoutes from './routes/user.js';
 import projectRoutes from './routes/project.js';
 import diagramRoutes from './routes/diagram.js';
+import userStoryRoutes from './routes/userStory.js';
 
 import subscriptionRoutes from './routes/subscription.js';
 import organizationRoutes from './routes/organization.js';
@@ -50,4 +51,5 @@ app.use('/api/organization', organizationRoutes);
 app.use('/api/auth', authRoutes);
 app.use("/api/elicitation", elicitationRoutes);
 app.use("/api/file", fileRoutes);
+app.use("/api/user-story", userStoryRoutes)
 

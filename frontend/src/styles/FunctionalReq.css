@@ -56,7 +56,7 @@
   }
   
   /* Modal and Editor Box Styling */
-  .modal {
+  /* .modal {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +76,7 @@
   .modal-body {
     display: flex;
     height: 100%;
-  }
+  } */
   
   /* Sidebar Styling */
   .sidebar-box {

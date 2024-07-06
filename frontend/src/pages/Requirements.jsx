@@ -8,6 +8,7 @@ import NonFunctionalReq from "../components/NonFunctionalReq/NonFunctionalReq";
 import RequirementsBoard from "../components/Project/RequirementsBoard";
 import '../styles/style.css';
 import NotFound from '../components/ErrorPages/NotFound';
+import ProjectDetail from '../components/Project/ProjectDetail';
 
 
 const Requirements = () => {
@@ -27,6 +28,7 @@ const Requirements = () => {
                             <Route path="specification" element={<Specification />} />
                             <Route path="modeling" element={<Modeling />} />
                             <Route path="nonFunctionalReq" element={<NonFunctionalReq />} />
+                            <Route path="settings" element={<ProjectDetail />} />
                         </Routes>
                     </Container>
                 </Col>

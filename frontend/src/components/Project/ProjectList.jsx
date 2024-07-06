@@ -18,14 +18,13 @@ const ProjectList = ({projects, handleProjectClick, showProjectDetail}) => {
                             <th>Priority</th>
                             <th>Deadline</th>
                             <th>Owner</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                        {projects.map((project, index) =>(
-                         <tr style={{ cursor: 'pointer' }} key={project._id}>
+                         <tr style={{ cursor: 'pointer' }} key={project._id} onClick={() => handleProjectClick(project._id)}>
                             <td>{index + 1}</td>
-                            <td  onClick={() => handleProjectClick(project._id)}><FontAwesomeIcon icon={faBell} className='mx-2' />{project.name}</td>
+                            <td ><FontAwesomeIcon icon={faBell} className='mx-2' />{project.name}</td>
                             <td><Badge bg="white" className="text-black">{project.status}</Badge></td>
                             <td>
                                 {project.priority === "High" ? (
@@ -40,17 +39,6 @@ const ProjectList = ({projects, handleProjectClick, showProjectDetail}) => {
                             </td>
                             <td>{project.deadline}</td>
                             <td><Image src="holder.js/200x180" roundedCircle alt="owner" /></td>
-                            <td>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="" id="dropdown-basic">
-                                        ...
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={()=> showProjectDetail(project._id)}>Description</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-2">Users</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </td>
                         </tr>
                        ))}
 

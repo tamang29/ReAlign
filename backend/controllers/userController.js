@@ -17,7 +17,7 @@ const createUser = async(req, res)=>{
 
 const getAllUser = async(req, res)=>{
     try{
-        const users = await User.find({});
+        const users = await User.find({}).select('firstName lastName isVerified organization photo role _id email');
         res.status(200).json(users);
     }catch(error){
         res.status(400).json(error);

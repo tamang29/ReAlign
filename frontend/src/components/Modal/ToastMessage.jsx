@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const ToastMessage = ({header, body, handleCloseToast}) =>{
+
     return(
         <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
                 <Toast onClose={handleCloseToast}>

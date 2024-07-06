@@ -25,6 +25,21 @@ const getProjectById = async (req, res) => {
     }
 }
 
+const getProject = async (req, res)=> {
+    console.log(req)
+    try {
+        const project = await Project.findById(req);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        return project;
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+}
+
 const createProject = async (req, res) =>{
     const {name,description,createdBy,status, deadline, priority, users} = req.body;
     try{
@@ -79,4 +94,4 @@ const deleteProject = async (req, res) =>{
 
 
 
-export {getAllProjects, getProjectById, createProject, updateProject, deleteProject};
+export {getAllProjects, getProjectById, createProject, updateProject, deleteProject,getProject};
