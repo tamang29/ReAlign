@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 
 
 export const sendVerificationEmail = async (user, req, res) => {
+    console.log(process.env.FRONTEND_URL)
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
     
