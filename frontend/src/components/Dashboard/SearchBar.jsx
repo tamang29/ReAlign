@@ -3,8 +3,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass, faFilter } from '@fortawesome/free-solid-svg-icons'
 
 
-const SearchBar = ({handleAddProject, handleSearch, changeShow, filterVisible, handleFilterVisible}) =>{
-
+const SearchBar = ({handleSearch, changeShow, filterVisible,
+    handleFilterVisible, handleStatusChange, handlePriorityChange,
+    handleFromDateChange, handleToDateChange ,handleClearFilter, status,
+priority, from ,to}) =>{
 
     return(
         <>
@@ -23,7 +25,7 @@ const SearchBar = ({handleAddProject, handleSearch, changeShow, filterVisible, h
                 </InputGroup>
             </Col>
             <Col xs={6} align="right">
-                <Button style={{backgroundColor: "rgb(62,30,65)"}} onClick={changeShow}>Add a Project</Button>
+                <Button className="realign-button" onClick={changeShow}>Add a Project</Button>
             </Col>
         </Row>
         <Row className="align-items-center">
@@ -31,34 +33,37 @@ const SearchBar = ({handleAddProject, handleSearch, changeShow, filterVisible, h
                 <>
                <Col md={2}>
                     <Form.Label>Status:</Form.Label>
-                    <Form.Select size="sm" id="status" name="status">
-                        <option>--choose--</option>
-                        <option>Design</option>
-                        <option>Testing</option>
-                        <option>Deployed</option>
-                        <option>Done</option>
+                    <Form.Select size="sm" id="status" name="status" value={status} onChange={handleStatusChange}>
+                        <option value="" disabled >--choose--</option>
+                        <option value="Design">Design</option>
+                        <option value="Testing">Testing</option>
+                        <option value="Deployed">Deployed</option>
+                        <option value="Done">Done</option>
                     </Form.Select>
                </Col>
                <Col md={2}>
                     <Form.Label>Priority:</Form.Label>
-                    <Form.Select size="sm" id="priority" name="priority">
-                        <option>--choose--</option>
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
+                    <Form.Select size="sm" id="priority" name="priority" value={priority} onChange={handlePriorityChange}>
+                        <option value="" disabled >--choose--</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
 
                     </Form.Select>
                 </Col>
                <Col md={4}>
                     <Row>
                         <Col>
-                        From:<Form.Control type="date" />
+                        From:<Form.Control type="date" value={from} onChange={handleFromDateChange}/>
                         </Col>
                         <Col>
-                        To:<Form.Control type="date" />
+                        To:<Form.Control type="date" value={to} onChange={handleToDateChange}/>
                         </Col>
                     </Row>
                </Col>
+               <Col md={2}>
+                <Button className="mt-3 realign-button" onClick={handleClearFilter}>Clear</Button>
+                </Col>
                </>
             )}
         </Row>

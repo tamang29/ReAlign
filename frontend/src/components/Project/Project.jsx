@@ -9,10 +9,11 @@ import { getAllProjects } from "../../services/projectService";
 import { useNavigate } from 'react-router-dom';
 import ProjectPopupForm from "./ProjectPopupForm";
 import { getAllUsers } from "../../services/userService";
-import {UserProvider} from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
+
 
 const Project = () =>{
-    const user = useContext(UserProvider);
+    const user = useContext(UserContext);
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]); //search bar filtered projects
     const [users, setUsers] = useState([]);
@@ -24,16 +25,19 @@ const Project = () =>{
     //search bar
     const [searchText, setSearchText] = useState('');
 
-    //filter visible option
+    //filter state
     const [filterVisible , setFilterVisible] = useState(false);
+    const [filterStatus, setFilterStatus] = useState('');
+    const [filterPriority, setFilterPriority] = useState('');
+    const [filterFromDate, setFilterFromDate] = useState('');
+    const [filterToDate, setFilterToDate] = useState('');
 
     const navigate = useNavigate();
 
     //Fetch project list from backend
     const fetchProjects = async() =>{
-        console.log(user);
         try{
-            const projectList = await getAllProjects();
+            const projectList = await getAllProjects(user[0]._id);
             setProjects(projectList);
             setFilteredProjects(projectList); // Initialize filteredProjects
         }catch(error){
@@ -44,6 +48,7 @@ const Project = () =>{
     }
 
     useEffect(()=>{
+        console.log(user)
         const fetchUsers = async() =>{
             try{
                 const userList = await getAllUsers();
@@ -66,14 +71,31 @@ const Project = () =>{
     const handleSearch = (event) => {
         const searchValue = event.target.value.toLowerCase();
         setSearchText(searchValue);
-        filterProjects(searchValue);
+        filterProjects(searchValue, filterStatus, filterPriority, filterFromDate, filterToDate);
     };
 
     // Filter projects based on search text
-    const filterProjects = (searchValue) => {
-        const filtered = projects.filter(project =>
+    const filterProjects = (searchValue,status, priority, fromDate, toDate) => {
+        let filtered = projects.filter(project =>
             project.name.toLowerCase().includes(searchValue)
         );
+
+        if (status) {
+            filtered = filtered.filter(project => project.status === status);
+        }
+
+        if (priority) {
+            filtered = filtered.filter(project => project.priority === priority);
+        }
+
+        if (fromDate) {
+            filtered = filtered.filter(project => new Date(project.deadline) >= new Date(fromDate));
+        }
+
+        if (toDate) {
+            filtered = filtered.filter(project => new Date(project.deadline) <= new Date(toDate));
+        }
+
         setFilteredProjects(filtered);
     };
     //handle popup window to show or close
@@ -96,8 +118,45 @@ const Project = () =>{
         if(!filterVisible){
         setFilterVisible(true);
         }else{
+        setFilteredProjects(projects);
         setFilterVisible(false);
         }
+    }
+
+    //handle filter changes status, priority and date
+    const handleStatusChange = (event) => {
+        const status = event.target.value;
+        console.log(status)
+        setFilterStatus(status);
+        filterProjects(searchText, status, filterPriority, filterFromDate, filterToDate);
+    };
+
+    const handlePriorityChange = (event) => {
+        const priority = event.target.value;
+        setFilterPriority(priority);
+        filterProjects(searchText, filterStatus, priority, filterFromDate, filterToDate);
+    };
+
+    const handleFromDateChange = (event) => {
+        const fromDate = event.target.value;
+        setFilterFromDate(fromDate);
+        filterProjects(searchText, filterStatus, filterPriority, fromDate, filterToDate);
+    };
+
+    const handleToDateChange = (event) => {
+        const toDate = event.target.value;
+        setFilterToDate(toDate);
+        filterProjects(searchText, filterStatus, filterPriority, filterFromDate, toDate);
+    };
+
+    //clear filter show all projects
+    const handleClearFilter = () =>{
+        setFilterStatus('');
+        setFilterPriority('');
+        setFilterFromDate('');
+        setFilterToDate('');
+        setSearchText('');
+        setFilteredProjects(projects);
     }
 
     return(
@@ -105,7 +164,22 @@ const Project = () =>{
             <BreadCrumbRow/>
             <Header title="Your Projects" />
             <ProjectPopupForm show={show} handleFormClose={handleFormClose} updateProjects={updateProjects} users={users}/>
-            <SearchBar searchText={searchText} handleSearch={handleSearch} changeShow={handleFormShow} filterVisible={filterVisible} handleFilterVisible={handleFilterVisible}/>
+            <SearchBar
+            searchText={searchText}
+            handleSearch={handleSearch}
+            changeShow={handleFormShow}
+            filterVisible={filterVisible}
+            handleFilterVisible={handleFilterVisible}
+            handleStatusChange={handleStatusChange}
+            handlePriorityChange={handlePriorityChange}
+            handleFromDateChange={handleFromDateChange}
+            handleToDateChange={handleToDateChange}
+            handleClearFilter={handleClearFilter}
+            status={filterStatus}
+            priority={filterPriority}
+            from={filterFromDate}
+            to={filterToDate}
+            />
             {loading ? (
                 <div className="text-center">
                     <Spinner animation="border" role="status">

@@ -51,5 +51,4 @@ app.use('/api/organization', organizationRoutes);
 app.use('/api/auth', authRoutes);
 app.use("/api/elicitation", elicitationRoutes);
 app.use("/api/file", fileRoutes);
-app.use("/api/user-story", userStoryRoutes)
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container ,Button, Form, Row, Nav, Navbar, NavDropdown, Modal, ListGroup} from "react-bootstrap";
 import { useEffect, useRef ,useState} from 'react';
 import { ApollonEditor, UMLDiagramType, ApollonMode, Locale,UMLModel} from '@ls1intum/apollon';
@@ -7,12 +7,16 @@ import { downloadAsPDF, convertSvgToPDF, saveNewDiagram, getDiagramByProject } f
 import { useParams } from "react-router-dom";
 import ToastMessage from "../Modal/ToastMessage";
 import OpenDiagramModal from "../Modal/OpenDiagramModal";
+import UserContext from "../../context/UserContext";
+
 
 
 
 const Modeling = () => {
+    const user = useContext(UserContext);
     //useParam to get projectId
     const param = useParams();
+    const projectId = param.projectId;
     const editorContainerRef = useRef(null);
     const [isEditorActive, setEditorActive] = useState(false);
 
@@ -32,6 +36,7 @@ const Modeling = () => {
 
     //Toast state
     const [showToast, setShowToast] = useState(false);
+    const [toastHeader, setToastHeader] = useState('');
     const [toastBody, setToastBody] = useState('');
 
     //open diagrams state
@@ -54,6 +59,7 @@ const Modeling = () => {
       ];
 
     useEffect(() => {
+        console.log(user)
         const options = {
             type: UMLDiagramType[defaultUML],
             mode: ApollonMode,
@@ -76,6 +82,7 @@ const Modeling = () => {
         setEditorActive(true)
     }, [defaultUML]);
 
+    //initialize Apollon
     const handleCreateModel = (event) => {
 
         const form = event.currentTarget;
@@ -159,25 +166,29 @@ const Modeling = () => {
 
   //save to mongodb
   const handleSaveModel = async() =>{
-    const apollonSVG = await apollonEditor.exportAsSVG();
-    const diagram = {
-        projectId: param.projectId,
-        svg: apollonSVG.svg,
-        fileName: fileName,
-        type: modelType,
-        createdBy: '664cf4de7e3db63be5771215'
-    }
-    try{
-    saveNewDiagram(diagram).then((response)=>{
-        if(response.status === 200){
-            setToastBody(response.data.msg)
-            setShowToast(true);
-        }
-    });
+    console.log("save")
 
-    }catch(error){
-        console.error("error saving diagram to DB.", error);
-    }
+
+   const model = apollonEditor.model
+   const diagramData = {
+        projectId: projectId,
+        fileName: fileName,
+        type: model.type,
+        model: model,
+        createdBy: user[0]._id
+   }
+   try {
+    // Send the JSON data to your backend to save it in MongoDB
+    await saveNewDiagram(diagramData);
+    setToastBody('Diagram saved successfully!');
+    setToastHeader('Success');
+    setShowToast(true);
+  } catch (error) {
+    console.error('Error saving diagram:', error);
+    setToastHeader('Danger')
+    setToastBody('Failed to save diagram. Please try again.');
+    setShowToast(true);
+  }
 
   }
 
@@ -193,16 +204,17 @@ const Modeling = () => {
   }
 
   const viewDiagram = async(diagram) =>{
-    console.log(diagram)
+    console.log(diagram.model)
     if(apollonEditor){
         apollonEditor.destroy();
     }
+
     const options = {
         type: UMLDiagramType[diagram.type],
         mode: ApollonMode,
         readonly: false,
         enablePopups: true,
-        model: null,
+        model: diagram.model,
         theme: {},
         locale: Locale.English,
         copyPasteToClipboard: true,
@@ -213,6 +225,7 @@ const Modeling = () => {
     const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
     setApollonEditor(ApolloEditor)
     setFileName(diagram.fileName)
+    closeOpenDiagramModal();
     }catch(error){
         console.error(error);
     }
@@ -295,7 +308,7 @@ const Modeling = () => {
                 </Modal.Body>
             </Modal>
             {showToast && <ToastMessage
-                header="Success"
+                header={toastHeader}
                 body={toastBody}
                 handleCloseToast= {handleCloseToast}
             /> }

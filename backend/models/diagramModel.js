@@ -3,36 +3,81 @@ const Schema = mongoose.Schema;
 
 const diagramSchema = new Schema({
     projectId: {
-        type : String,
+        type: String,
         required: true
     },
-    svg: {
-        type : String,
-        required: true
+    model: {
+        version: {
+            type: String,
+            required: true
+        },
+        type: {
+            type: String,
+            required: true
+        },
+        size: {
+            width: {
+                type: Number,
+                required: true
+            },
+            height: {
+                type: Number,
+                required: true
+            }
+        },
+        interactive: {
+            elements: {
+                type: Map,
+                of: Schema.Types.Mixed,
+                default: {}
+            },
+            relationships: {
+                type: Map,
+                of: Schema.Types.Mixed,
+                default: {}
+            }
+        },
+        elements: {
+            type: Map,
+            of: Schema.Types.Mixed,
+            default: {}
+        },
+        relationships: {
+            type: Map,
+            of: Schema.Types.Mixed,
+            default: {}
+        },
+        assessments: {
+            type: Map,
+            of: Schema.Types.Mixed,
+            default: {}
+        }
     },
     fileName: {
-        type : String,
+        type: String,
         required: true
     },
     type: {
-        type : String,
+        type: String,
         required: true
     },
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        required: true
     },
     lastUpdatedBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        required: true
     },
     createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     },
     updatedAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     }
 })
 
