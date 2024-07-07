@@ -81,6 +81,7 @@ const Modeling = () => {
         setEditorActive(true)
     }, [defaultUML]);
 
+    //initialize Apollon
     const handleCreateModel = (event) => {
 
         const form = event.currentTarget;

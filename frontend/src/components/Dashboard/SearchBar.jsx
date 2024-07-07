@@ -8,7 +8,6 @@ const SearchBar = ({handleSearch, changeShow, filterVisible,
     handleFromDateChange, handleToDateChange ,handleClearFilter, status,
 priority, from ,to}) =>{
 
-
     return(
         <>
         <Row>

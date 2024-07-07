@@ -123,6 +123,7 @@ const Project = () =>{
         }
     }
 
+    //handle filter changes status, priority and date
     const handleStatusChange = (event) => {
         const status = event.target.value;
         console.log(status)
@@ -148,6 +149,7 @@ const Project = () =>{
         filterProjects(searchText, filterStatus, filterPriority, filterFromDate, toDate);
     };
 
+    //clear filter show all projects
     const handleClearFilter = () =>{
         setFilterStatus('');
         setFilterPriority('');
