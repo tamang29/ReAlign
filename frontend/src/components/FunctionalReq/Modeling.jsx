@@ -11,7 +11,7 @@ import OpenDiagramModal from "../Modal/OpenDiagramModal";
 
 
 const Modeling = () => {
-
+    //useParam to get projectId
     const param = useParams();
     const editorContainerRef = useRef(null);
     const [isEditorActive, setEditorActive] = useState(false);
