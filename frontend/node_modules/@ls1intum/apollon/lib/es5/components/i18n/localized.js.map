@@ -1,0 +1,1 @@
+{"version":3,"file":"localized.js","sourceRoot":"","sources":["../../../../src/main/components/i18n/localized.tsx"],"names":[],"mappings":";;;;AAAA,wDAA6C;AAC7C,+CAA2D;AAE3D,SAAgB,SAAS,CAAwB,SAA2B;IAC1E,OAAO,SAAS,kBAAkB,CAAC,KAAmD;QACpF,OAAO,8BAAC,2BAAY,QAAE,UAAC,IAAI,IAAK,OAAA,8BAAC,SAAS,uBAAM,KAAW,EAAM,IAAI,EAAI,EAAzC,CAAyC,CAAgB,CAAC;IAC5F,CAAC,CAAC;AACJ,CAAC;AAJD,8BAIC"}

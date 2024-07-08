@@ -1,0 +1,1 @@
+{"version":3,"file":"uml-class-dependency.js","sourceRoot":"","sources":["../../../../../src/main/packages/uml-class-diagram/uml-class-dependency/uml-class-dependency.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,IAAI,CAAC;AAC3C,OAAO,EAAE,cAAc,EAAE,MAAM,8CAA8C,CAAC;AAE9E,MAAM,OAAO,kBAAmB,SAAQ,cAAc;IAAtD;;QACE,SAAI,GAAG,qBAAqB,CAAC,eAAe,CAAC;IAC/C,CAAC;CAAA"}

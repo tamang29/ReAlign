@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/main/packages/uml-component-diagram/index.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,oBAAoB,GAAG;IAClC,SAAS,EAAE,WAAW;IACtB,SAAS,EAAE,WAAW;IACtB,kBAAkB,EAAE,oBAAoB;CAChC,CAAC;AAEX,MAAM,CAAC,MAAM,yBAAyB,GAAG;IACvC,0BAA0B,EAAE,4BAA4B;IACxD,0BAA0B,EAAE,4BAA4B;IACxD,mBAAmB,EAAE,qBAAqB;CAClC,CAAC"}

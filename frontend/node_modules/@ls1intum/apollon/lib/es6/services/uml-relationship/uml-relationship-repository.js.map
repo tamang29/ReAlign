@@ -1,0 +1,1 @@
+{"version":3,"file":"uml-relationship-repository.js","sourceRoot":"","sources":["../../../../src/main/services/uml-relationship/uml-relationship-repository.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,0CAA0C,CAAC;AACzE,OAAO,EAAE,+BAA+B,EAAE,MAAM,sCAAsC,CAAC;AAEvF,MAAM,CAAC,MAAM,yBAAyB,GAAG;IACvC,GAAG,+BAA+B;IAClC,GAAG,aAAa;CACjB,CAAC"}

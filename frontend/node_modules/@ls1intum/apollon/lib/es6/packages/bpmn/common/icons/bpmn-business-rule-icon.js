@@ -1,0 +1,9 @@
+import React from 'react';
+import { ThemedPolyline, ThemedRect } from '../../../../components/theme/themedComponents';
+export const BPMNBusinessRuleIcon = (props) => (React.createElement("svg", { ...props, height: 20, width: 20 },
+    React.createElement(ThemedRect, { height: 16, width: 16, x: 2, y: 2, strokeLinejoin: "round", fillColor: "transparent" }),
+    React.createElement(ThemedRect, { height: 4, width: 16, x: 2, y: 2, strokeLinejoin: "round", fillColor: "currentColor" }),
+    React.createElement(ThemedPolyline, { points: '2 10, 18 10', strokeLinecap: "round", strokeLinejoin: "round" }),
+    React.createElement(ThemedPolyline, { points: '2 14, 18 14', strokeLinecap: "round", strokeLinejoin: "round" }),
+    React.createElement(ThemedPolyline, { points: '6 2, 6 18', strokeLinecap: "round", strokeLinejoin: "round" })));
+//# sourceMappingURL=bpmn-business-rule-icon.js.map

@@ -1,0 +1,60 @@
+"use strict";
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UMLRelationships = void 0;
+var uml_activity_control_flow_1 = require("./uml-activity-diagram/uml-activity-control-flow/uml-activity-control-flow");
+var uml_class_aggregation_1 = require("./uml-class-diagram/uml-class-aggregation/uml-class-aggregation");
+var uml_class_bidirectional_1 = require("./uml-class-diagram/uml-class-bidirectional/uml-class-bidirectional");
+var uml_class_composition_1 = require("./uml-class-diagram/uml-class-composition/uml-class-composition");
+var uml_class_dependency_1 = require("./uml-class-diagram/uml-class-dependency/uml-class-dependency");
+var uml_class_inheritance_1 = require("./uml-class-diagram/uml-class-inheritance/uml-class-inheritance");
+var uml_class_realization_1 = require("./uml-class-diagram/uml-class-realization/uml-class-realization");
+var uml_class_unidirectional_1 = require("./uml-class-diagram/uml-class-unidirectional/uml-class-unidirectional");
+var uml_communication_link_1 = require("./uml-communication-diagram/uml-communication-link/uml-communication-link");
+var uml_component_dependency_1 = require("./uml-component-diagram/uml-component-dependency/uml-component-dependency");
+var uml_component_interface_provided_1 = require("./uml-component-diagram/uml-component-interface-provided/uml-component-interface-provided");
+var uml_component_interface_required_1 = require("./uml-component-diagram/uml-component-interface-required/uml-component-interface-required");
+var uml_deployment_association_1 = require("./uml-deployment-diagram/uml-deployment-association/uml-deployment-association");
+var uml_object_link_1 = require("./uml-object-diagram/uml-object-link/uml-object-link");
+var uml_relationship_type_1 = require("./uml-relationship-type");
+var uml_use_case_association_1 = require("./uml-use-case-diagram/uml-use-case-association/uml-use-case-association");
+var uml_use_case_extend_1 = require("./uml-use-case-diagram/uml-use-case-extend/uml-use-case-extend");
+var uml_use_case_generalization_1 = require("./uml-use-case-diagram/uml-use-case-generalization/uml-use-case-generalization");
+var uml_use_case_include_1 = require("./uml-use-case-diagram/uml-use-case-include/uml-use-case-include");
+var uml_deployment_interface_provided_1 = require("./uml-deployment-diagram/uml-deployment-interface-provided/uml-deployment-interface-provided");
+var uml_deployment_interface_required_1 = require("./uml-deployment-diagram/uml-deployment-interface-required/uml-deployment-interface-required");
+var uml_deployment_dependency_1 = require("./uml-deployment-diagram/uml-deployment-dependency/uml-deployment-dependency");
+var uml_petri_net_arc_1 = require("./uml-petri-net/uml-petri-net-arc/uml-petri-net-arc");
+var uml_reachability_graph_arc_1 = require("./uml-reachability-graph/uml-reachability-graph-arc/uml-reachability-graph-arc");
+var syntax_tree_link_1 = require("./syntax-tree/syntax-tree-link/syntax-tree-link");
+var flowchart_flowline_1 = require("./flowchart/flowchart-flowline/flowchart-flowline");
+var bpmn_flow_1 = require("./bpmn/bpmn-flow/bpmn-flow");
+exports.UMLRelationships = (_a = {},
+    _a[uml_relationship_type_1.UMLRelationshipType.ClassAggregation] = uml_class_aggregation_1.UMLClassAggregation,
+    _a[uml_relationship_type_1.UMLRelationshipType.ClassBidirectional] = uml_class_bidirectional_1.UMLClassBidirectional,
+    _a[uml_relationship_type_1.UMLRelationshipType.ClassComposition] = uml_class_composition_1.UMLClassComposition,
+    _a[uml_relationship_type_1.UMLRelationshipType.ClassDependency] = uml_class_dependency_1.UMLClassDependency,
+    _a[uml_relationship_type_1.UMLRelationshipType.ClassInheritance] = uml_class_inheritance_1.UMLClassInheritance,
+    _a[uml_relationship_type_1.UMLRelationshipType.ClassRealization] = uml_class_realization_1.UMLClassRealization,
+    _a[uml_relationship_type_1.UMLRelationshipType.ClassUnidirectional] = uml_class_unidirectional_1.UMLClassUnidirectional,
+    _a[uml_relationship_type_1.UMLRelationshipType.ObjectLink] = uml_object_link_1.UMLObjectLink,
+    _a[uml_relationship_type_1.UMLRelationshipType.ActivityControlFlow] = uml_activity_control_flow_1.UMLActivityControlFlow,
+    _a[uml_relationship_type_1.UMLRelationshipType.UseCaseAssociation] = uml_use_case_association_1.UMLUseCaseAssociation,
+    _a[uml_relationship_type_1.UMLRelationshipType.UseCaseExtend] = uml_use_case_extend_1.UMLUseCaseExtend,
+    _a[uml_relationship_type_1.UMLRelationshipType.UseCaseGeneralization] = uml_use_case_generalization_1.UMLUseCaseGeneralization,
+    _a[uml_relationship_type_1.UMLRelationshipType.UseCaseInclude] = uml_use_case_include_1.UMLUseCaseInclude,
+    _a[uml_relationship_type_1.UMLRelationshipType.CommunicationLink] = uml_communication_link_1.UMLCommunicationLink,
+    _a[uml_relationship_type_1.UMLRelationshipType.ComponentDependency] = uml_component_dependency_1.UMLComponentDependency,
+    _a[uml_relationship_type_1.UMLRelationshipType.ComponentInterfaceProvided] = uml_component_interface_provided_1.UMLComponentInterfaceProvided,
+    _a[uml_relationship_type_1.UMLRelationshipType.ComponentInterfaceRequired] = uml_component_interface_required_1.UMLComponentInterfaceRequired,
+    _a[uml_relationship_type_1.UMLRelationshipType.DeploymentAssociation] = uml_deployment_association_1.UMLDeploymentAssociation,
+    _a[uml_relationship_type_1.UMLRelationshipType.DeploymentDependency] = uml_deployment_dependency_1.UMLDeploymentDependency,
+    _a[uml_relationship_type_1.UMLRelationshipType.DeploymentInterfaceProvided] = uml_deployment_interface_provided_1.UMLDeploymentInterfaceProvided,
+    _a[uml_relationship_type_1.UMLRelationshipType.DeploymentInterfaceRequired] = uml_deployment_interface_required_1.UMLDeploymentInterfaceRequired,
+    _a[uml_relationship_type_1.UMLRelationshipType.PetriNetArc] = uml_petri_net_arc_1.UMLPetriNetArc,
+    _a[uml_relationship_type_1.UMLRelationshipType.ReachabilityGraphArc] = uml_reachability_graph_arc_1.UMLReachabilityGraphArc,
+    _a[uml_relationship_type_1.UMLRelationshipType.SyntaxTreeLink] = syntax_tree_link_1.SyntaxTreeLink,
+    _a[uml_relationship_type_1.UMLRelationshipType.FlowchartFlowline] = flowchart_flowline_1.FlowchartFlowline,
+    _a[uml_relationship_type_1.UMLRelationshipType.BPMNFlow] = bpmn_flow_1.BPMNFlow,
+    _a);
+//# sourceMappingURL=uml-relationships.js.map

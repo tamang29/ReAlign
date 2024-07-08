@@ -1,0 +1,30 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { UMLElementRepository } from '../../services/uml-element/uml-element-repository';
+import { Point } from '../../utils/geometry/point';
+import { getPortsForElement } from '../../services/uml-element/uml-element';
+import { styled } from '../theme/styles';
+const enhance = connect((state, props) => ({
+    ports: getPortsForElement(UMLElementRepository.get(state.elements[props.port.element])),
+}), {
+    end: UMLElementRepository.endConnecting,
+    getAbsolutePosition: UMLElementRepository.getAbsolutePosition,
+});
+const Polyline = styled.polyline `
+  stroke: ${(props) => props.theme.color.primaryContrast};
+  fill: 'none';
+  pointer-events: 'none';
+`;
+class RelationshipPreview extends Component {
+    render() {
+        const { port, ports } = this.props;
+        const { x, y } = this.props.getAbsolutePosition(port.element);
+        const position = { ...ports[port.direction] };
+        const source = new Point(x + position.x, y + position.y);
+        const path = [source, this.props.target];
+        const points = path.map((p) => `${p.x} ${p.y}`).join(', ');
+        return React.createElement(Polyline, { points: points, "pointer-events": "none", stroke: "black", fill: "none", strokeDasharray: "5,5" });
+    }
+}
+export const UMLRelationshipPreview = enhance(RelationshipPreview);
+//# sourceMappingURL=uml-relationship-preview.js.map

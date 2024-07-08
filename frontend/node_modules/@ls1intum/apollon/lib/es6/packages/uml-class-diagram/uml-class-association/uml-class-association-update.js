@@ -1,0 +1,94 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { ClassRelationshipType } from '..';
+import { Button } from '../../../components/controls/button/button';
+import { ColorButton } from '../../../components/controls/color-button/color-button';
+import { Divider } from '../../../components/controls/divider/divider';
+import { Dropdown } from '../../../components/controls/dropdown/dropdown';
+import { ExchangeIcon } from '../../../components/controls/icon/exchange';
+import { TrashIcon } from '../../../components/controls/icon/trash';
+import { Textfield } from '../../../components/controls/textfield/textfield';
+import { Body, Header } from '../../../components/controls/typography/typography';
+import { localized } from '../../../components/i18n/localized';
+import { StylePane } from '../../../components/style-pane/style-pane';
+import { styled } from '../../../components/theme/styles';
+import { UMLElementRepository } from '../../../services/uml-element/uml-element-repository';
+import { UMLRelationshipRepository } from '../../../services/uml-relationship/uml-relationship-repository';
+const enhance = compose(localized, connect(null, {
+    update: UMLElementRepository.update,
+    delete: UMLElementRepository.delete,
+    flip: UMLRelationshipRepository.flip,
+    getById: UMLElementRepository.getById,
+}));
+const Flex = styled.div `
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+`;
+class ClassAssociationComponent extends Component {
+    constructor() {
+        super(...arguments);
+        this.state = { colorOpen: false };
+        this.toggleColor = () => {
+            this.setState((state) => ({
+                colorOpen: !state.colorOpen,
+            }));
+        };
+        this.onChange = (type) => {
+            const { element, update } = this.props;
+            update(element.id, { type });
+        };
+        this.onUpdate = (type, end) => (value) => {
+            const { element, update } = this.props;
+            update(element.id, { [end]: { ...element[end], [type]: value } });
+        };
+    }
+    render() {
+        const { element, getById } = this.props;
+        const source = element.source && getById(element.source.element);
+        const target = element.target && getById(element.target.element);
+        if (!source || !target)
+            return null;
+        return (React.createElement("div", null,
+            React.createElement("section", null,
+                React.createElement(Flex, null,
+                    React.createElement(Header, { gutter: false, style: { flexGrow: 1 } }, this.props.translate('popup.association')),
+                    React.createElement(ColorButton, { onClick: this.toggleColor }),
+                    React.createElement(Button, { color: "link", onClick: () => this.props.flip(element.id) },
+                        React.createElement(ExchangeIcon, null)),
+                    React.createElement(Button, { color: "link", onClick: () => this.props.delete(element.id) },
+                        React.createElement(TrashIcon, null))),
+                React.createElement(StylePane, { open: this.state.colorOpen, element: element, onColorChange: this.props.update, lineColor: true, textColor: true }),
+                React.createElement(Divider, null)),
+            React.createElement("section", null,
+                React.createElement(Dropdown, { value: element.type, onChange: this.onChange },
+                    React.createElement(Dropdown.Item, { value: ClassRelationshipType.ClassAggregation }, this.props.translate('packages.ClassDiagram.ClassAggregation')),
+                    React.createElement(Dropdown.Item, { value: ClassRelationshipType.ClassUnidirectional }, this.props.translate('packages.ClassDiagram.ClassUnidirectional')),
+                    React.createElement(Dropdown.Item, { value: ClassRelationshipType.ClassBidirectional }, this.props.translate('packages.ClassDiagram.ClassBidirectional')),
+                    React.createElement(Dropdown.Item, { value: ClassRelationshipType.ClassComposition }, this.props.translate('packages.ClassDiagram.ClassComposition')),
+                    React.createElement(Dropdown.Item, { value: ClassRelationshipType.ClassDependency }, this.props.translate('packages.ClassDiagram.ClassDependency')),
+                    React.createElement(Dropdown.Item, { value: ClassRelationshipType.ClassInheritance }, this.props.translate('packages.ClassDiagram.ClassInheritance')),
+                    React.createElement(Dropdown.Item, { value: ClassRelationshipType.ClassRealization }, this.props.translate('packages.ClassDiagram.ClassRealization'))),
+                React.createElement(Divider, null)),
+            React.createElement("section", null,
+                React.createElement(Header, null, source.name),
+                React.createElement(Flex, null,
+                    React.createElement(Body, { style: { marginRight: '0.5em' } }, this.props.translate('popup.multiplicity')),
+                    React.createElement(Textfield, { style: { minWidth: 0 }, gutter: true, value: element.source.multiplicity, onChange: this.onUpdate('multiplicity', 'source'), autoFocus: true })),
+                React.createElement(Flex, null,
+                    React.createElement(Body, { style: { marginRight: '0.5em' } }, this.props.translate('popup.role')),
+                    React.createElement(Textfield, { value: element.source.role, onChange: this.onUpdate('role', 'source') })),
+                React.createElement(Divider, null)),
+            React.createElement("section", null,
+                React.createElement(Header, null, target.name),
+                React.createElement(Flex, null,
+                    React.createElement(Body, { style: { marginRight: '0.5em' } }, this.props.translate('popup.multiplicity')),
+                    React.createElement(Textfield, { style: { minWidth: 0 }, gutter: true, value: element.target.multiplicity, onChange: this.onUpdate('multiplicity', 'target') })),
+                React.createElement(Flex, null,
+                    React.createElement(Body, { style: { marginRight: '0.5em' } }, this.props.translate('popup.role')),
+                    React.createElement(Textfield, { value: element.target.role, onChange: this.onUpdate('role', 'target') })))));
+    }
+}
+export const UMLClassAssociationUpdate = enhance(ClassAssociationComponent);
+//# sourceMappingURL=uml-class-association-update.js.map
