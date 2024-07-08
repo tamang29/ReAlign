@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Routes, Route, useParams } from 'react-router-dom';
 import Elicitation from "../components/FunctionalReq/Elicitation";
 import Specification from "../components/FunctionalReq/Specification";
-import Modeling from "../components/FunctionalReq/Modeling";
+import Modeling from "../components/FunctionalReq/Modeling/Modeling";
 import NonFunctionalReq from "../components/NonFunctionalReq/NonFunctionalReq";
 import RequirementsBoard from "../components/Project/RequirementsBoard";
 import '../styles/style.css';

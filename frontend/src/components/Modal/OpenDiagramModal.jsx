@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Modal,ListGroup } from "react-bootstrap"
 
-const OpenDiagramModal = ({diagrams, closeOpenDiagramModal, viewDiagram}) =>{
+const OpenDiagramModal = ({diagrams, closeOpenDiagramModal, openDiagram}) =>{
     return(
         <Modal show onHide={closeOpenDiagramModal}>
                 <Modal.Header closeButton>
@@ -14,7 +14,7 @@ const OpenDiagramModal = ({diagrams, closeOpenDiagramModal, viewDiagram}) =>{
                                     <ListGroup.Item
                                         key={diagram._id}
                                         action
-                                        onClick={() => viewDiagram(diagram)}
+                                        onClick={() => openDiagram(diagram)}
                                     >
                                         {diagram.fileName}
                                         <br/>

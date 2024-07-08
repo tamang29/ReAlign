@@ -1,18 +1,15 @@
 import React, { useContext } from "react";
 import { Container ,Button, Form, Row, Nav, Navbar, NavDropdown, Modal, ListGroup} from "react-bootstrap";
 import { useEffect, useRef ,useState} from 'react';
-import { ApollonEditor, UMLDiagramType, ApollonMode, Locale,UMLModel} from '@ls1intum/apollon';
 import BreadCrumbRow from "../Dashboard/BreadCrumbRow";
-import { downloadAsPDF, convertSvgToPDF, saveNewDiagram, getDiagramByProject } from "../../services/diagramService";
+import { downloadAsPDF, convertSvgToPDF, saveNewDiagram, getDiagramByProject, initializeDiagram,diagramTypes, openDiagramFromDB } from "../../services/diagramService";
 import { useParams } from "react-router-dom";
 import ToastMessage from "../Modal/ToastMessage";
 import OpenDiagramModal from "../Modal/OpenDiagramModal";
 import UserContext from "../../context/UserContext";
 
 
-
-
-const Modeling = () => {
+const ApollonDiagram = ({selectedModal, diagram}) => {
     const user = useContext(UserContext);
     //useParam to get projectId
     const param = useParams();
@@ -23,14 +20,13 @@ const Modeling = () => {
     //apollon editor
     const [apollonEditor, setApollonEditor] = useState(null);
     //selected UML type
-    const [defaultUML, setdefaultUML] = useState('ClassDiagram');
     const [modelType, setModelType] = useState('ClassDiagram');
 
     //show create new modal form
     const [showCreateModal , setShowCreateModal] = useState(false);
 
     //new file name and diagram selected by user
-    const [fileName, setFileName] = useState('ClassDiagram');
+    const [fileName, setFileName] = useState(selectedModal);
     //form validation
     const [validated, setValidated] = useState(false);
 
@@ -43,46 +39,25 @@ const Modeling = () => {
     const [diagrams, setDiagrams]= useState([]);
     const [showDiagramModal, setShowDiagramModal] = useState(false);
 
-    const diagramTypes = [
-        { id: 'ClassDiagram', label: 'Class Diagram' },
-        { id: 'ObjectDiagram', label: 'Object Diagram' },
-        { id: 'ActivityDiagram', label: 'Activity Diagram' },
-        { id: 'UseCaseDiagram', label: 'Use Case Diagram' },
-        { id: 'CommunicationDiagram', label: 'Communication Diagram' },
-        { id: 'ComponentDiagram', label: 'Component Diagram' },
-        { id: 'DeploymentDiagram', label: 'Deployment Diagram' },
-        { id: 'PetriNet', label: 'PetriNet' },
-        { id: 'ReachabilityGraph', label: 'Reachability Graph' },
-        { id: 'SyntaxTree', label: 'Syntax Tree' },
-        { id: 'Flowchart', label: 'Flowchart' },
-        { id: 'BPMN', label: 'BPMN' }
-      ];
-
-    useEffect(() => {
-        console.log(user)
-        const options = {
-            type: UMLDiagramType[defaultUML],
-            mode: ApollonMode,
-            readonly: false,
-            enablePopups: true,
-            model: null,
-            theme: {},
-            locale: Locale.English,
-            copyPasteToClipboard: true,
-            colorEnabled: true,
-            scale: 1.0,
-        };
+    const initializeApollon = async(UML) =>{
         try{
-        const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
-        setApollonEditor(ApolloEditor)
-
-        }catch(error){
-            console.error(error);
-        }
+        const ApollonEditor = initializeDiagram(editorContainerRef, UML);
+        setApollonEditor(ApollonEditor);
         setEditorActive(true)
-    }, [defaultUML]);
-
+        }catch(error){
+            console.log(error);
+        }
+    }
     //initialize Apollon
+    useEffect(() => {
+        if(!diagram){
+        initializeApollon(selectedModal);
+        }else{
+            openDiagram(diagram);
+        }
+    }, [selectedModal]);
+
+
     const handleCreateModel = (event) => {
 
         const form = event.currentTarget;
@@ -97,25 +72,7 @@ const Modeling = () => {
         if(apollonEditor){
             apollonEditor.destroy();
         }
-        const options = {
-            type: UMLDiagramType[modelType],
-            mode: ApollonMode,
-            readonly: false,
-            enablePopups: true,
-            model: null,
-            theme: {},
-            locale: Locale.English,
-            copyPasteToClipboard: true,
-            colorEnabled: true,
-            scale: 1.0,
-        };
-        try{
-        const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
-        setApollonEditor(ApolloEditor)
-        }catch(error){
-            console.error(error);
-        }
-        setEditorActive(true);
+        initializeApollon(modelType)
         setShowCreateModal(false);
     }
     };
@@ -146,6 +103,7 @@ const Modeling = () => {
 
   //export model as pdf
   const handleExport = async() => {
+    console.log("hanlde")
     if (apollonEditor) {
         const apollonSVG = await apollonEditor.exportAsSVG();
         const {width, height} = apollonSVG.clip;
@@ -166,9 +124,6 @@ const Modeling = () => {
 
   //save to mongodb
   const handleSaveModel = async() =>{
-    console.log("save")
-
-
    const model = apollonEditor.model
    const diagramData = {
         projectId: projectId,
@@ -195,7 +150,6 @@ const Modeling = () => {
   const fetchDiagrams = async() =>{
     try{
     const diagrams = await getDiagramByProject(param.projectId);
-    console.log(diagrams)
     setDiagrams(diagrams)
     setShowDiagramModal(true);
     }catch(error){
@@ -203,27 +157,13 @@ const Modeling = () => {
     }
   }
 
-  const viewDiagram = async(diagram) =>{
-    console.log(diagram.model)
+  const openDiagram = async(diagram) =>{
     if(apollonEditor){
         apollonEditor.destroy();
     }
-
-    const options = {
-        type: UMLDiagramType[diagram.type],
-        mode: ApollonMode,
-        readonly: false,
-        enablePopups: true,
-        model: diagram.model,
-        theme: {},
-        locale: Locale.English,
-        copyPasteToClipboard: true,
-        colorEnabled: true,
-        scale: 1.0,
-    };
     try{
-    const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
-    setApollonEditor(ApolloEditor)
+    const ApollonEditor = await openDiagramFromDB(editorContainerRef,diagram);
+    setApollonEditor(ApollonEditor)
     setFileName(diagram.fileName)
     closeOpenDiagramModal();
     }catch(error){
@@ -235,8 +175,7 @@ const Modeling = () => {
 
 
     return (
-        <Container fluid style={{ height: '100vh'}}>
-            <BreadCrumbRow/>
+        <Container fluid >
             <Navbar className="bg-body-tertiary">
                 <Container>
                     <Navbar.Brand href="#home">Re Modeling</Navbar.Brand>
@@ -257,7 +196,9 @@ const Modeling = () => {
                         </NavDropdown>
 
                         {fileName? (
-                            <Nav.Link disabled className="text-dark fw-bold">{fileName}</Nav.Link>
+                            <Nav.Link disabled className="text-dark fw-bold">
+                                {fileName}
+                            </Nav.Link>
                         ): (
                             <Nav.Link disabled className="text-dark fw-bold">new file</Nav.Link>
                         )}
@@ -313,10 +254,10 @@ const Modeling = () => {
                 handleCloseToast= {handleCloseToast}
             /> }
 
-            {showDiagramModal && <OpenDiagramModal diagrams={diagrams} closeOpenDiagramModal={closeOpenDiagramModal} viewDiagram={viewDiagram}/>}
+            {showDiagramModal && <OpenDiagramModal diagrams={diagrams} closeOpenDiagramModal={closeOpenDiagramModal} openDiagram={openDiagram}/>}
             </Row>
         </Container>
     );
 }
 
-export default Modeling;
+export default ApollonDiagram;

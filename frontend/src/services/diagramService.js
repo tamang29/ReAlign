@@ -1,6 +1,59 @@
 import axios from "axios";
-
+import { ApollonEditor, UMLDiagramType, ApollonMode, Locale} from '@ls1intum/apollon';
 const API_URL = "http://localhost:3000/api/diagram";
+
+const diagramTypes = [
+    { id: 'ClassDiagram', label: 'Class Diagram' },
+    { id: 'ObjectDiagram', label: 'Object Diagram' },
+    { id: 'ActivityDiagram', label: 'Activity Diagram' },
+    { id: 'UseCaseDiagram', label: 'Use Case Diagram' },
+    { id: 'CommunicationDiagram', label: 'Communication Diagram' },
+    { id: 'ComponentDiagram', label: 'Component Diagram' },
+    { id: 'DeploymentDiagram', label: 'Deployment Diagram' },
+    { id: 'PetriNet', label: 'PetriNet' },
+    { id: 'ReachabilityGraph', label: 'Reachability Graph' },
+    { id: 'SyntaxTree', label: 'Syntax Tree' },
+    { id: 'Flowchart', label: 'Flowchart' },
+    { id: 'BPMN', label: 'BPMN' }
+  ];
+
+const initializeDiagram = (editorContainerRef, UML) =>{
+    const options = {
+        type: UMLDiagramType[UML],
+        mode: ApollonMode,
+        readonly: false,
+        enablePopups: true,
+        model: null,
+        theme: {},
+        locale: Locale.English,
+        copyPasteToClipboard: true,
+        colorEnabled: true,
+        scale: 1.0,
+    };
+    const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
+    return ApolloEditor;
+}
+
+const openDiagramFromDB = async(editorContainerRef,diagram) =>{
+    const options = {
+        type: UMLDiagramType[diagram.type],
+        mode: ApollonMode,
+        readonly: false,
+        enablePopups: true,
+        model: diagram.model,
+        theme: {},
+        locale: Locale.English,
+        copyPasteToClipboard: true,
+        colorEnabled: true,
+        scale: 1.0,
+    };
+    try{
+    const ApolloEditor = new ApollonEditor(editorContainerRef.current, options);
+    return ApolloEditor;
+    }catch(error){
+        console.error(error);
+    }
+  }
 
 
 //save diagram to db
@@ -54,4 +107,4 @@ const downloadAsPDF = (pdfBlob, fileName) =>{
 }
 
 
-export {convertSvgToPDF, downloadAsPDF,saveNewDiagram, getDiagramByProject};
+export {initializeDiagram,convertSvgToPDF, downloadAsPDF,saveNewDiagram, getDiagramByProject,diagramTypes,openDiagramFromDB};
