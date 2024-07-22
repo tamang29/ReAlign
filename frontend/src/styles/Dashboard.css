@@ -1,0 +1,67 @@
+/* Dashboard style */
+.dashboard-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.dashboard-container .mainview-container {
+    height: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    background-color: rgb(219, 231, 234);
+}
+
+body.dark .dashboard-container .mainview-container {
+    background-color: #1f1f1f;
+}
+
+/* Project view style */
+.project-table-container {
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.project-table thead tr th {
+    background-color: transparent;
+    margin-right: auto;
+}
+
+body.dark .project-table thead tr th {
+    background-color: e;
+    color: #fff;
+}
+
+.project-table tbody tr td {
+    background-color: transparent;
+    padding: 0.7em 0.2 em;
+}
+
+body.dark .project-table tbody tr td {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+}
+
+.project-table tbody tr:hover {
+    background-color: #d6d6d62b;
+}
+
+/* Breadcrumbs*/
+body.light .breadcrumb-item {
+    color: #000;
+}
+
+body.dark .breadcrumb-item {
+    color: #fff;
+}
+
+body.dark .breadcrumb-item::before {
+    color: #fff;
+}
+
+/* toast */
+body.dark .toast-body {
+    color: black !important;
+  }

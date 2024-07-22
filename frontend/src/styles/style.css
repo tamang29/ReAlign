@@ -1,0 +1,119 @@
+/* General styles */
+body {
+    /* font-family: Arial, sans-serif; */
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Dashboard style */
+.dashboard-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.dashboard-container .mainview-container {
+    height: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    background-color: rgb(219, 231, 234);
+}
+
+/* Project view style */
+.project-table-container{
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+.project-table thead tr th {
+    background-color: rgb(219, 231, 234);
+}
+
+.project-table tbody tr td {
+    background-color: rgb(219, 231, 234);
+    padding: 0.6em 0;
+}
+
+.project-table tbody tr td:hover {
+    cursor: pointer;
+}
+
+.breadcrumb-item {
+    font-size: 12px;
+}
+
+/* Realign style */
+.company-logo {
+    cursor: pointer;
+}
+
+/* Elicitation Editor style */
+.white-box {
+    width: 100%;
+    height: 400px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.white-box-content {
+    height: 100%;
+}
+
+/* Upload file table content */
+.file-table th,
+.file-table td {
+    background-color: rgb(219, 231, 234);
+}
+
+/* upload file table content */
+.file-table th, .file-table td{
+    background-color: rgb(219, 231, 234);
+}
+
+
+/*Apollon Editor*/
+.apollon-editor{
+    height: 100vh;
+}
+
+.realign-button{
+    background-color: rgb(62,30,65);
+}
+
+/* Modeling list table*/
+.model-table-container{
+    height: 60vh;
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+.model-table thead tr th {
+    background-color: rgb(219, 231, 234);
+}
+
+.model-table tbody tr td {
+    background-color: rgb(219, 231, 234);
+    padding: 0.6em 0;
+}
+
+.model-table tbody tr td:hover {
+    cursor: pointer;
+}
+.sticky-header th {
+    position: sticky;
+    top: 0;
+    background-color: white; /* Set background color to avoid transparency */
+    z-index: 1; /* Ensure it stays above the table content */
+}
+
+/* Optional: Additional styling for table headers */
+.model-table th {
+    font-weight: bold;
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}

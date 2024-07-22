@@ -1,0 +1,43 @@
+/* Project view style */
+.model-table-container {
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.model-table thead tr th {
+    background-color: rgb(219, 231, 234);
+}
+
+body.dark .model-table thead tr th {
+    background-color: #1f1f1f;
+    color: #fff;
+}
+
+.model-table tbody tr td {
+    background-color: rgb(219, 231, 234);
+    padding: 0.6em 0;
+}
+
+body.dark .model-table tbody tr td {
+    background-color: #1f1f1f;
+    color: #fff;
+    border: none;
+}
+
+.model-table tbody:hover {
+    background-color: transparent;
+}
+.model-table tbody tr td:hover {
+    background-color: transparent !important;
+}
+
+
+.trash-button {
+    margin-left: 2rem;
+}
+
+body.dark .toast-body {
+    color: black !important;
+  }
+
