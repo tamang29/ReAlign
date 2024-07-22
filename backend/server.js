@@ -5,13 +5,16 @@ import db from "./db/connection.js"
 import userRoutes from './routes/user.js';
 import projectRoutes from './routes/project.js';
 import diagramRoutes from './routes/diagram.js';
-import userStoryRoutes from './routes/userStory.js';
+
 
 import subscriptionRoutes from './routes/subscription.js';
 import organizationRoutes from './routes/organization.js';
 import authRoutes from './routes/auth.js';
 import elicitationRoutes from "./routes/elicitation.js";
+import specificationRoutes from "./routes/specification.js";
+import notificationRoutes from "./routes/notification.js";
 import fileRoutes from "./routes/file.js";
+import nfrRoutes from "./routes/nfr.js"
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -50,5 +53,8 @@ app.use('/api/subscription', subscriptionRoutes);
 app.use('/api/organization', organizationRoutes);
 app.use('/api/auth', authRoutes);
 app.use("/api/elicitation", elicitationRoutes);
+app.use("/api/specification", specificationRoutes);
+app.use("/api/notifications", notificationRoutes);
 app.use("/api/file", fileRoutes);
+app.use("/api/nfr", nfrRoutes);
 

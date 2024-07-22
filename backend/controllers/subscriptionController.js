@@ -31,4 +31,27 @@ const getSubscriptionById = async (req, res) => {
     }
 };
 
-export {createSubscription, getAllSubscription, getSubscriptionById};
+const updateSubscription = async (req, res) => {
+    try {
+        // Find subscription by ID and update it with the new data
+        const updatedSubscription = await Subscription.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true } // Options to return the updated document and run validators
+        );
+
+        // Check if the subscription was found and updated
+        if (!updatedSubscription) {
+            return res.status(404).json({ message: 'Subscription not found or could not be updated' });
+        }
+
+        // Send the updated subscription as the response
+        res.status(200).json(updatedSubscription);
+    } catch (error) {
+        // Handle and log the error properly without circular references
+        console.error('Error updating subscription:', error.message);
+        res.status(400).json({ message: 'Error updating subscription', error: error.message });
+    }
+};
+
+export { createSubscription, getAllSubscription, getSubscriptionById, updateSubscription };

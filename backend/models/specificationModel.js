@@ -10,27 +10,27 @@ const specificationSchema = new Schema({
   },
   title: {
     type: String,
-    required: true
   },
   content: {
     type: String,
-    required: true
   },
   description: String,
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
   },
   updatedBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+},
   pinned: {
     type: Boolean,
-    default: true
-  }
+    default: false
+  },
 });
 
 const Specification = mongoose.model('Specification', specificationSchema);

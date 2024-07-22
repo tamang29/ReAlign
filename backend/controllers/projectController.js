@@ -1,44 +1,49 @@
+import Diagram from "../models/diagramModel.js";
+import Elicitation from "../models/elicitationModel.js"
+import NFR from "../models/nFRModel.js";
 import Project from "../models/projectModel.js";
-import { getUserById } from "./userController.js";
+import Specification from "../models/specificationModel.js";
+import File from "../models/fileModel.js"
+import Notification from "../models/notificationModel.js"
+
 
 
 const getAllProjects = async (req, res) => {
     const id = req.query.id;
-    console.log(id)
     try {
-        const projects = await Project.find({'users.member': id });
-        res.json(projects);
+        const projects = await Project.find({'users.member': id }).populate('createdBy', 'firstName lastName photo email');
+        res.status(200).json(projects);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}
+};
 
+// Get project by ID
 const getProjectById = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id).populate('users.member', 'firstName lastName email');
 
         if (project == null) {
-            return res.status(404).json({ message: 'Project not found' });
+            return res.status(404).json({ msg: 'Project not found' });
         }
 
         res.json(project);
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        return res.status(500).json({ msg: err });
     }
 }
 
 const getProject = async (req, res)=> {
-    console.log(req)
     try {
         const project = await Project.findById(req);
 
         if (!project) {
-            return res.status(404).json({ message: 'Project not found' });
+            return res.status(404).json({ msg: 'Project not found' });
         }
 
         return project;
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        return res.status(500).json({ msg: err.message });
     }
 }
 
@@ -48,6 +53,14 @@ const createProject = async (req, res) =>{
         if(!name || !status ||!deadline || !priority){
             res.status(400).json({msg: "All fields are mandatory."});
         }
+        const updatedUsers = [
+            ...users,
+            {
+                member: createdBy,
+                role: 'Owner'
+            }
+        ];
+
         const project = {
             name: name,
             description: description,
@@ -55,13 +68,12 @@ const createProject = async (req, res) =>{
             status: status,
             deadline: deadline,
             priority: priority,
-            users: users
+            users: updatedUsers
         }
        Project.create(project).then(()=>{
         res.status(201).json(project)
        }).catch((err)=>{
         res.status(500).json({msg: "Error while saving to DB."})
-        console.log(err)
        })
 
     }catch(error){
@@ -71,16 +83,23 @@ const createProject = async (req, res) =>{
 }
 
 const updateProject = async (req, res)=>{
-    const {name,description,createdBy,status, deadline, priority, users} = req.body;
+    const { name, description, createdBy, status, deadline, priority, users } = req.body;
     const id = req.params.id;
-    try{
-        const project = await Project.findByIdAndUpdate(id, req.body);
-        res.status(200).json(project);
 
-    }catch(error){
-        res.status(500).json({msg: "Error while updating project."})
+    try {
+        if (!name || !createdBy || !status || !deadline || !priority || !users) {
+            return res.status(400).json({ msg: "Error in input." });
+        }
+
+        const project = await Project.findByIdAndUpdate(id, req.body, { new: true });
+        if (!project) {
+            return res.status(404).json({ msg: "Project not found." });
+        }
+
+        res.status(200).json({ project, msg: "Update successful." });
+    } catch (error) {
+        res.status(500).json({ msg: "Error while updating project." });
     }
-
 }
 
 const deleteProject = async (req, res) =>{
@@ -88,12 +107,45 @@ const deleteProject = async (req, res) =>{
 
     try{
         await Project.deleteOne({_id: id});
+        await Diagram.deleteMany({projectId: id});
+        await NFR.deleteMany({projectId: id});
+        await Elicitation.deleteMany({project: id});
+        await Notification.deleteMany({project:id});
+        await File.deleteMany({project: id});
+        await Specification.deleteMany({project: id});
         res.status(200).json({msg : "Project deleted successfully."})
     }catch(error){
         res.status(500).json({msg: "Error while deleting project."})
     }
 }
 
+// Get users by project ID
+const getUsersByProject = async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id).populate('users.member', 'firstName lastName email');
+
+        if (!project) {
+            return res.status(404).json({ msg: 'Project not found' });
+        }
+
+        const users = project.users.reduce((acc, userRole) => {
+            if (userRole.member) {
+                acc.push({
+                    _id: userRole.member._id,
+                    firstName: userRole.member.firstName,
+                    lastName: userRole.member.lastName,
+                });
+            }
+            return acc;
+        }, []);
+
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ msg: err });
+    }
+};
 
 
-export {getAllProjects, getProjectById, createProject, updateProject, deleteProject,getProject};
+export {getUsersByProject, getAllProjects, getProjectById, createProject, updateProject, deleteProject, getProject};
+
+

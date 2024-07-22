@@ -8,7 +8,8 @@ const subscriptionSchema = new Schema({
     price: Number,
     comment: String, // for custom Enterprize
     start: Date,
-    end: Date
+    end: Date,
+    userLimit: Number
 });
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);

@@ -1,12 +1,11 @@
 import express from 'express';
-import { getElicitation, updateElicitation } from '../controllers/elicitationController.js';
+import { getElicitationByProject, updateElicitation, createElicitation } from '../controllers/elicitationController.js';
+
 
 const router = express.Router();
 
-// Fetch elicitation data
-router.get('/:projectId', getElicitation);
-
-// Create or update elicitation data
-router.post('/update', updateElicitation);
+router.get('/:projectId',  getElicitationByProject);
+router.post('/update',  updateElicitation);
+router.post('/create',  createElicitation);
 
 export default router;

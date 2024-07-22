@@ -1,14 +1,38 @@
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
 
-const fileSchema = new Schema({
-    name: { type: String, required: true },
-    date: { type: Date, default: Date.now },
-    user: { type: Number },
-    project: { type: Number },
-    base64: { type: String, required: true } 
-}, { timestamps: true });
+const fileSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    data: {
+        type: String,
+        required: true
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    specification: {
+        type: Boolean
+    },
 
-const File = mongoose.model('File', fileSchema);
+    elicitation: {
+        type: Boolean
+    },
 
-export default File;
+    nfr: {
+        type: Boolean
+    }
+   
+});
+
+export default mongoose.model('File', fileSchema);

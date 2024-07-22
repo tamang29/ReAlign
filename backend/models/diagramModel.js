@@ -1,42 +1,27 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const diagramSchema = new Schema({
-    projectId: {
+
+const modelSchema = new Schema({
+    version: {
         type: String,
         required: true
     },
-    model: {
-        version: {
-            type: String,
+    type: {
+        type: String,
+        required: true
+    },
+    size: {
+        width: {
+            type: Number,
             required: true
         },
-        type: {
-            type: String,
+        height: {
+            type: Number,
             required: true
-        },
-        size: {
-            width: {
-                type: Number,
-                required: true
-            },
-            height: {
-                type: Number,
-                required: true
-            }
-        },
-        interactive: {
-            elements: {
-                type: Map,
-                of: Schema.Types.Mixed,
-                default: {}
-            },
-            relationships: {
-                type: Map,
-                of: Schema.Types.Mixed,
-                default: {}
-            }
-        },
+        }
+    },
+    interactive: {
         elements: {
             type: Map,
             of: Schema.Types.Mixed,
@@ -46,12 +31,38 @@ const diagramSchema = new Schema({
             type: Map,
             of: Schema.Types.Mixed,
             default: {}
-        },
-        assessments: {
-            type: Map,
-            of: Schema.Types.Mixed,
-            default: {}
         }
+    },
+    elements: {
+        type: Map,
+        of: Schema.Types.Mixed,
+        default: {}
+    },
+    relationships: {
+        type: Map,
+        of: Schema.Types.Mixed,
+        default: {}
+    },
+    assessments: {
+        type: Map,
+        of: Schema.Types.Mixed,
+        default: {}
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
+}, { _id: false });  // Disable automatic _id generation for sub-documents
+
+
+const diagramSchema = new Schema({
+    projectId: {
+        type: String,
+        required: true
     },
     fileName: {
         type: String,
@@ -75,6 +86,7 @@ const diagramSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    versions: [modelSchema],  // Array of versions
     updatedAt: {
         type: Date,
         default: Date.now

@@ -1,25 +1,75 @@
+import { Double, Int32 } from "mongodb";
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
+
+
+const rowSchema = new Schema ({
+    aspect: {
+        type: String
+    },
+    description: {
+        type: String
+    },
+    priority: {
+        type: String
+    },
+    metric: {
+        type: String
+    },
+    target: {
+        type: String
+    },
+    currentStatus:{
+        type: String
+    }
+
+})
+const colSchema = new Schema ({
+    field: {
+        type: String
+    },
+    headerName: {
+        type: String
+    },
+    editable: {
+        type: Boolean
+    },
+    colId: {
+        type: String
+    },
+    width: {
+        type: Number
+    }
+})
+
 const nFRSchema = new Schema({
-    project: projectSchema,
-    title: {
+    projectId: {
         type: String,
         required: true
     },
-    description: String,
-    createdBy: userSchema,
-    updatedBy: userSchema,
     type: {
         type: String,
-        enum: ["Security", "Performance", "Availability"],
         required: true
     },
-    pinned: {
-        type: Boolean,
-        required: true,
-        default: true
+    row: [rowSchema],
+    col: [colSchema],
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    lastUpdatedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
     }
-    //, deleted? - for Version Control
 });
 
 const NFR = mongoose.model('NFR', nFRSchema);

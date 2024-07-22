@@ -26,12 +26,17 @@ const userSchema = new Schema({
         enum: ['Admin', 'Member', null],
       },
       photo: {
-        type: String,
-        required: false
-      },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'File'
+      } ,
       isVerified: {type: Boolean, default: false},
       token: {type: String, default: null},
-      organization: {type: String, default: null}
+      // organization: {type: String, default: null}
+      organization: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Organization', 
+        default: null
+      }
 
 }, {collection: "users"},{timestamps: true});
 

@@ -1,22 +1,18 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
-
 const elicitationSchema = new mongoose.Schema({
     project: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project',
+        required: true
     },
     freeText: {
         type: String,
-        default: '',
     },
-    files: {
-        type: Array,
-        default: [],
-    },
+    mentions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
 });
 
-const Elicitation = mongoose.model('Elicitation', elicitationSchema);
-
-export default Elicitation;
+export default mongoose.model('Elicitation', elicitationSchema);

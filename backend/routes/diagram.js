@@ -1,9 +1,12 @@
 import express from 'express';
 const router = express.Router();
-import {convertSvgToPDF, createNewDiagram, getDiagramByProject} from '../controllers/diagramController.js'
+import {convertSvgToPDF, createNewDiagram, deleteDiagram, getDiagramByProject, updateDiagram} from '../controllers/diagramController.js'
+import { protect } from '../middleware/authMiddleware.js';
 
-router.post('/', createNewDiagram);
-router.post('/export', convertSvgToPDF);
+router.post('/', protect ,createNewDiagram);
+router.post('/export',  convertSvgToPDF);
 router.get('/:projectId', getDiagramByProject);
+router.put('/:diagramId', updateDiagram);
+router.delete('/:id', deleteDiagram);
 
 export default router;

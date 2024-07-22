@@ -1,0 +1,123 @@
+/* File Upload Styles */
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.file-upload-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+ 
+}
+
+.file-upload-table {
+    width: 100%;
+    border-collapse: collapse; 
+    border: none; 
+}
+
+.file-upload-table th{
+    padding: 10px;
+    text-align: left;
+    background-color: transparent; 
+    border: none; 
+    color: #2b0d5b;
+}
+
+.file-upload-table td {
+    padding: 10px;
+    text-align: left;
+    background-color: transparent; 
+    border: none; 
+    color: #000;
+}
+.file-upload-table td:hover {
+    color: blue;
+}
+
+body.dark .file-upload-table th{
+    padding: 10px;
+    text-align: left;
+    background-color: transparent; 
+    border: none; 
+    color: #bb86fc;
+}
+
+body.dark .file-upload-table td {
+    padding: 10px;
+    text-align: left;
+    background-color: transparent; 
+    border: none; 
+    color: #fff;
+}
+body.dark .file-upload-table td:hover {
+    color: rgb(103, 103, 255);
+}
+
+
+.delete-icon:hover{
+    color: rgb(127, 1, 1);
+}
+
+
+.file-upload-modal {
+    max-width: 90vw;
+    max-height: 90vh; 
+    margin: auto; 
+}
+    
+
+.file-upload-modal .modal-content {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 90%; 
+    background-color: #fff;
+    border: none;
+}
+
+body.dark .file-upload-modal .modal-content {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 90%; 
+    background-color: #fff;
+    border: none;
+}
+
+.file-upload-modal .modal-header {
+    display: flex; 
+    align-items: center;
+    position: relative; 
+    border: none; 
+}
+
+.file-upload-modal .modal-title {
+    margin: 0; 
+    font-size: 1.5rem; 
+    font-weight: bolder;
+    color: black; 
+}
+
+.file-upload-modal .close {
+    position: absolute; 
+    top: 8px;
+    left: 890px; 
+    font-size: 2rem; 
+    background: none; 
+    border: none;
+    cursor: pointer; 
+    color: #000; 
+}
+
+.owner-photo {
+    width: 28px;
+    height: 28px;
+    background-color: rgb(62,30,65);;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0 auto;
+}

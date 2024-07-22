@@ -85,7 +85,8 @@ const generateVerificationEmail = (url, user) => {
                   <a href="${url}" class="button">Verify Email</a>
                   <p>If the button above doesn't work, you can also verify your email by clicking the following link:</p>
                   <p><a href="${url}">${url}</a></p>
-                  <p>We look forward to helping you simplify your requirements engineering process and enhance your team's collaboration.</p>
+                  <p><strong>If you selected a Team to join during registration, we will notify the team's admin. Upon approval, we will inform you, and you will be added to the team.</strong></p>
+                  <p>We look forward to helping you simplify your requirements engineering process and enhance your team's collaboration!</p>
                   <p>If you have any questions or need assistance, feel free to reply to this email or contact our support team.</p>
                   <p>Best regards,<br>The ReAlign Team</p>
               </div>
